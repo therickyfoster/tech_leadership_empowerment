@@ -1,0 +1,3018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technological Leadership Empowerment — Core Digital Leadership Competencies</title>
+    
+    <!-- 
+    ========================================================================
+    TECHNOLOGICAL LEADERSHIP EMPOWERMENT
+    A comprehensive guide to core digital leadership competencies
+    
+    This standalone page provides research-grounded frameworks, tools,
+    and practices for developing technological leadership capabilities.
+    
+    No external dependencies required. All data stays local.
+    ========================================================================
+    -->
+    
+    <style>
+        /* ===========================================
+           CSS VARIABLES & DESIGN SYSTEM
+           Establishing a cohesive visual language
+           inspired by circuit boards and neural networks
+        =========================================== */
+        :root {
+            --bg-deep: #0a0f1a;
+            --bg-surface: #111827;
+            --bg-elevated: #1f2937;
+            --bg-glass: rgba(31, 41, 55, 0.7);
+            
+            --text-primary: #f0f4f8;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            --accent-cyan: #06b6d4;
+            --accent-cyan-glow: rgba(6, 182, 212, 0.4);
+            --accent-emerald: #10b981;
+            --accent-emerald-glow: rgba(16, 185, 129, 0.4);
+            --accent-amber: #f59e0b;
+            --accent-violet: #8b5cf6;
+            --accent-rose: #f43f5e;
+            
+            --gradient-primary: linear-gradient(135deg, var(--accent-cyan), var(--accent-emerald));
+            --gradient-warm: linear-gradient(135deg, var(--accent-amber), var(--accent-rose));
+            
+            --font-display: 'Segoe UI', system-ui, sans-serif;
+            --font-body: 'Georgia', serif;
+            --font-mono: 'Consolas', 'Monaco', monospace;
+            
+            --shadow-glow: 0 0 40px var(--accent-cyan-glow);
+            --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
+            
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===========================================
+           RESET & BASE STYLES
+        =========================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===========================================
+           PARTICLE CANVAS BACKGROUND
+           Creates ambient floating particles
+        =========================================== */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           LAYOUT CONTAINERS
+        =========================================== */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, var(--accent-cyan), transparent);
+            opacity: 0.5;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+        =========================================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.75rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        a:hover {
+            color: var(--accent-emerald);
+        }
+
+        /* ===========================================
+           HERO SECTION
+        =========================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, var(--accent-cyan-glow) 0%, transparent 70%);
+            opacity: 0.3;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--accent-emerald);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            font-family: var(--font-display);
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* ===========================================
+           NAVIGATION / TABLE OF CONTENTS
+        =========================================== */
+        .toc {
+            position: fixed;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: none;
+        }
+
+        @media (min-width: 1400px) {
+            .toc {
+                display: block;
+            }
+        }
+
+        .toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toc-item {
+            position: relative;
+        }
+
+        .toc-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .toc-link:hover,
+        .toc-link.active {
+            background: var(--bg-elevated);
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+
+        .toc-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           CARDS & PANELS
+        =========================================== */
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            transition: var(--transition-smooth);
+        }
+
+        .card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-4px);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .panel {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin: 32px 0;
+        }
+
+        /* ===========================================
+           COMPETENCY FRAMEWORK VISUALIZATION
+        =========================================== */
+        .competency-wheel {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 48px auto;
+            aspect-ratio: 1;
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--bg-deep);
+            box-shadow: var(--shadow-glow);
+            z-index: 10;
+        }
+
+        .wheel-segment {
+            position: absolute;
+            width: 140px;
+            padding: 16px;
+            background: var(--bg-elevated);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .wheel-segment:hover {
+            border-color: var(--accent-cyan);
+            transform: scale(1.05);
+            z-index: 20;
+        }
+
+        .wheel-segment.active {
+            border-color: var(--accent-emerald);
+            background: var(--bg-surface);
+        }
+
+        .segment-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .segment-title {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Position segments around the wheel */
+        .wheel-segment:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+        .wheel-segment:nth-child(2) { top: 12%; right: 5%; }
+        .wheel-segment:nth-child(3) { top: 40%; right: -5%; }
+        .wheel-segment:nth-child(4) { bottom: 12%; right: 5%; }
+        .wheel-segment:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .wheel-segment:nth-child(6) { bottom: 12%; left: 5%; }
+        .wheel-segment:nth-child(7) { top: 40%; left: -5%; }
+        .wheel-segment:nth-child(8) { top: 12%; left: 5%; }
+
+        /* ===========================================
+           INTERACTIVE SELF-ASSESSMENT
+        =========================================== */
+        .assessment-tool {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin: 48px 0;
+        }
+
+        .assessment-intro {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .assessment-question {
+            background: var(--bg-elevated);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .assessment-question.answered {
+            border-left: 4px solid var(--accent-emerald);
+        }
+
+        .question-text {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .question-scale {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .scale-option {
+            flex: 1;
+            min-width: 60px;
+            padding: 12px 8px;
+            background: var(--bg-surface);
+            border: 2px solid transparent;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition-smooth);
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .scale-option:hover {
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        .scale-option.selected {
+            background: var(--accent-cyan);
+            color: var(--bg-deep);
+            border-color: var(--accent-cyan);
+        }
+
+        .assessment-results {
+            display: none;
+            margin-top: 32px;
+            padding: 32px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-md);
+        }
+
+        .assessment-results.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-bar {
+            margin-bottom: 16px;
+        }
+
+        .result-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+        }
+
+        .result-track {
+            height: 12px;
+            background: var(--bg-surface);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .result-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        /* ===========================================
+           CHECKLIST COMPONENTS
+        =========================================== */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .checklist-item:hover {
+            background: var(--bg-surface);
+        }
+
+        .checklist-item.checked {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--accent-emerald);
+        }
+
+        .checklist-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-muted);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .checklist-item.checked .checklist-checkbox {
+            background: var(--accent-emerald);
+            border-color: var(--accent-emerald);
+        }
+
+        .checklist-checkbox::after {
+            content: '✓';
+            color: var(--bg-deep);
+            font-weight: bold;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .checklist-item.checked .checklist-checkbox::after {
+            opacity: 1;
+        }
+
+        .checklist-content h4 {
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .checklist-content p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* ===========================================
+           METRICS DASHBOARD
+        =========================================== */
+        .metrics-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+
+        .metric-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .metric-card:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .metric-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .metric-trend.up {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-emerald);
+        }
+
+        .metric-trend.down {
+            background: rgba(244, 63, 94, 0.2);
+            color: var(--accent-rose);
+        }
+
+        /* ===========================================
+           30-DAY EXPERIMENT TIMELINE
+        =========================================== */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 32px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-emerald), var(--accent-violet));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 24px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(8px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 32px;
+            width: 16px;
+            height: 16px;
+            background: var(--bg-deep);
+            border: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+        }
+
+        .timeline-week {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .timeline-actions {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .timeline-actions li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .timeline-actions li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-emerald);
+        }
+
+        /* ===========================================
+           WORKSHOP / MEETING TEMPLATE
+        =========================================== */
+        .meeting-template {
+            background: linear-gradient(135deg, var(--bg-surface), var(--bg-elevated));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin: 32px 0;
+        }
+
+        .meeting-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .meeting-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .meeting-meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 8px;
+        }
+
+        .meeting-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .agenda-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .agenda-time {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+        }
+
+        .agenda-content h4 {
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .agenda-content p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* ===========================================
+           RISK & ETHICS SECTION
+        =========================================== */
+        .risk-panel {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(251, 191, 36, 0.1));
+            border: 1px solid var(--accent-amber);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin: 32px 0;
+        }
+
+        .risk-panel h3 {
+            color: var(--accent-amber);
+        }
+
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .risk-item {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            padding: 24px;
+        }
+
+        .risk-item h4 {
+            color: var(--accent-rose);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-item h4::before {
+            content: '⚠';
+        }
+
+        .mitigation {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+        }
+
+        .mitigation strong {
+            color: var(--accent-emerald);
+        }
+
+        /* ===========================================
+           EXPANDABLE SECTIONS
+        =========================================== */
+        .expandable {
+            margin-bottom: 16px;
+        }
+
+        .expandable-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .expandable-header:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .expandable.open .expandable-header {
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            border-bottom-color: transparent;
+        }
+
+        .expandable-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .expandable-icon {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            transition: var(--transition-smooth);
+        }
+
+        .expandable.open .expandable-icon {
+            transform: rotate(45deg);
+        }
+
+        .expandable-content {
+            display: none;
+            padding: 24px;
+            background: var(--bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: none;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+        }
+
+        .expandable.open .expandable-content {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===========================================
+           PROGRESS TRACKER
+        =========================================== */
+        .progress-tracker {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        .progress-stat {
+            text-align: center;
+        }
+
+        .progress-stat-value {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .progress-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar-container {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            height: 24px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--bg-deep);
+        }
+
+        /* ===========================================
+           BUTTONS
+        =========================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--bg-deep);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-deep);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        /* ===========================================
+           TABS
+        =========================================== */
+        .tabs {
+            margin: 32px 0;
+        }
+
+        .tab-list {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-surface);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-primary);
+            color: var(--bg-deep);
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ===========================================
+           QUOTE / CALLOUT
+        =========================================== */
+        .callout {
+            padding: 24px 32px;
+            background: var(--bg-elevated);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin: 24px 0;
+        }
+
+        .callout-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .callout-source {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* ===========================================
+           RESEARCH CITATIONS
+        =========================================== */
+        .citation {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 12px 16px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-sm);
+            margin-top: 8px;
+        }
+
+        .citation::before {
+            content: '📚 ';
+        }
+
+        /* ===========================================
+           FOOTER
+        =========================================== */
+        .footer {
+            background: var(--bg-surface);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 24px 40px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            padding: 4px 0;
+        }
+
+        .ethics-notice {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-emerald);
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .ethics-notice h4 {
+            color: var(--accent-emerald);
+            margin-bottom: 8px;
+        }
+
+        .ethics-notice p {
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ===========================================
+           RESPONSIVE ADJUSTMENTS
+        =========================================== */
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .competency-wheel {
+                display: none;
+            }
+
+            .wheel-mobile {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .meeting-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .meeting-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .agenda-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+
+            .timeline::before {
+                left: 10px;
+            }
+
+            .timeline-item::before {
+                left: -26px;
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        /* ===========================================
+           PRINT STYLES
+        =========================================== */
+        @media print {
+            .particle-canvas,
+            .toc,
+            .btn,
+            .tab-list {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .card,
+            .panel,
+            .meeting-template {
+                break-inside: avoid;
+            }
+        }
+
+        /* ===========================================
+           UTILITY CLASSES
+        =========================================== */
+        .text-center { text-align: center; }
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .mt-0 { margin-top: 0; }
+        .mb-0 { margin-bottom: 0; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .hidden { display: none; }
+
+        /* Wheel mobile fallback */
+        .wheel-mobile {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .wheel-mobile {
+                display: grid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+    ========================================
+    PARTICLE ANIMATION CANVAS
+    Creates ambient floating particles that
+    respond subtly to cursor movement
+    ======================================== 
+    -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- 
+    ========================================
+    TABLE OF CONTENTS (Fixed Navigation)
+    Visible on larger screens
+    ======================================== 
+    -->
+    <nav class="toc" aria-label="Table of contents">
+        <ul class="toc-list">
+            <li class="toc-item">
+                <a href="#overview" class="toc-link active">
+                    <span class="toc-dot"></span>
+                    Overview
+                </a>
+            </li>
+            <li class="toc-item">
+                <a href="#framework" class="toc-link">
+                    <span class="toc-dot"></span>
+                    Competency Framework
+                </a>
+            </li>
+            <li class="toc-item">
+                <a href="#assessment" class="toc-link">
+                    <span class="toc-dot"></span>
+                    Self-Assessment
+                </a>
+            </li>
+            <li class="toc-item">
+                <a href="#playbook" class="toc-link">
+                    <span class="toc-dot"></span>
+                    Leader's Playbook
+                </a>
+            </li>
+            <li class="toc-item">
+                <a href="#experiment" class="toc-link">
+                    <span class="toc-dot"></span>
+                    30-Day Experiment
+                </a>
+            </li>
+            <li class="toc-item">
+                <a href="#meeting" class="toc-link">
+                    <span class="toc-dot"></span>
+                    1-Meeting Version
+                </a>
+            </li>
+            <li class="toc-item">
+                <a href="#metrics" class="toc-link">
+                    <span class="toc-dot"></span>
+                    Metrics & KPIs
+                </a>
+            </li>
+            <li class="toc-item">
+                <a href="#risks" class="toc-link">
+                    <span class="toc-dot"></span>
+                    Risks & Ethics
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="page-wrapper">
+        <!-- 
+        ========================================
+        HERO SECTION
+        The main introduction to this guide
+        ======================================== 
+        -->
+        <header class="hero" id="overview">
+            <div class="hero-content">
+                <p class="hero-subtitle">Comprehensive Leadership Guide</p>
+                <h1>Technological Leadership Empowerment</h1>
+                <p class="hero-description">
+                    Master the core digital leadership competencies that distinguish transformational tech leaders 
+                    in the age of AI, distributed teams, and rapid change. Research-grounded frameworks, 
+                    practical tools, and actionable experiments for leaders at every level.
+                </p>
+                <div class="btn-group" style="justify-content: center;">
+                    <a href="#assessment" class="btn btn-primary">Start Self-Assessment</a>
+                    <a href="#playbook" class="btn btn-secondary">View Playbook</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 
+        ========================================
+        SECTION: WHY THIS MATTERS
+        Context and research foundation
+        ======================================== 
+        -->
+        <section class="section">
+            <div class="container">
+                <h2>Why Digital Leadership Competencies Matter Now</h2>
+                <p>
+                    The role of technology leaders has fundamentally shifted. Today's digital leaders don't just 
+                    manage systems—they shape how humans and machines collaborate, navigate ethical complexities, 
+                    and build resilient organizations in an era of constant change.
+                </p>
+
+                <div class="callout">
+                    <p class="callout-quote">
+                        "By 2025, 70% of organizations will have shifted to a 'digital-first' culture, requiring 
+                        leaders who can blend technical fluency with human-centered leadership."
+                    </p>
+                    <p class="callout-source">— Adapted from Gartner Digital Workplace Research, 2023</p>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🌐 The Convergence Challenge</h3>
+                        <p>
+                            Technology, strategy, and people leadership have merged into a single discipline. 
+                            Leaders must simultaneously understand AI capabilities, organizational dynamics, 
+                            and ethical implications.
+                        </p>
+                        <div class="citation">
+                            McKinsey Global Institute, "Tech Forward: The Convergent Leader," 2024
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🔄 Accelerating Change Cycles</h3>
+                        <p>
+                            Technology refresh cycles have compressed from years to months. Leaders need 
+                            "learning agility"—the ability to quickly acquire and apply new knowledge in 
+                            unfamiliar situations.
+                        </p>
+                        <div class="citation">
+                            Deloitte Human Capital Trends, 2024
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>🤝 Human-AI Orchestration</h3>
+                        <p>
+                            The future belongs to leaders who can orchestrate human creativity with AI 
+                            capabilities—not replacing workers, but amplifying what makes us distinctly human.
+                        </p>
+                        <div class="citation">
+                            MIT Sloan Management Review, "Human+AI Leadership," 2024
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: COMPETENCY FRAMEWORK
+        Interactive visualization of core competencies
+        ======================================== 
+        -->
+        <section class="section" id="framework">
+            <div class="container">
+                <h2 class="text-center">The 8 Core Digital Leadership Competencies</h2>
+                <p class="text-center" style="max-width: 700px; margin: 0 auto;">
+                    Based on synthesis of research from MIT, Stanford, Harvard Business School, and 
+                    practitioner studies from 2020-2025. Click each competency to explore in depth.
+                </p>
+
+                <!-- Desktop: Interactive Wheel -->
+                <div class="competency-wheel" id="competency-wheel">
+                    <div class="wheel-center">
+                        DIGITAL<br>LEADERSHIP
+                    </div>
+                    <div class="wheel-segment" data-competency="strategic">
+                        <div class="segment-icon">🎯</div>
+                        <div class="segment-title">Strategic Tech Vision</div>
+                    </div>
+                    <div class="wheel-segment" data-competency="data">
+                        <div class="segment-icon">📊</div>
+                        <div class="segment-title">Data Fluency</div>
+                    </div>
+                    <div class="wheel-segment" data-competency="adaptive">
+                        <div class="segment-icon">🔄</div>
+                        <div class="segment-title">Adaptive Learning</div>
+                    </div>
+                    <div class="wheel-segment" data-competency="collaboration">
+                        <div class="segment-icon">🤝</div>
+                        <div class="segment-title">Digital Collaboration</div>
+                    </div>
+                    <div class="wheel-segment" data-competency="ethics">
+                        <div class="segment-icon">⚖️</div>
+                        <div class="segment-title">Tech Ethics</div>
+                    </div>
+                    <div class="wheel-segment" data-competency="innovation">
+                        <div class="segment-icon">💡</div>
+                        <div class="segment-title">Innovation Catalysis</div>
+                    </div>
+                    <div class="wheel-segment" data-competency="change">
+                        <div class="segment-icon">🚀</div>
+                        <div class="segment-title">Change Leadership</div>
+                    </div>
+                    <div class="wheel-segment" data-competency="resilience">
+                        <div class="segment-icon">🛡️</div>
+                        <div class="segment-title">Digital Resilience</div>
+                    </div>
+                </div>
+
+                <!-- Mobile: Grid Layout -->
+                <div class="wheel-mobile">
+                    <div class="card" data-competency="strategic">
+                        <h4>🎯 Strategic Tech Vision</h4>
+                        <p class="mb-0">Align technology investments with business strategy</p>
+                    </div>
+                    <div class="card" data-competency="data">
+                        <h4>📊 Data Fluency</h4>
+                        <p class="mb-0">Make evidence-based decisions with data literacy</p>
+                    </div>
+                    <div class="card" data-competency="adaptive">
+                        <h4>🔄 Adaptive Learning</h4>
+                        <p class="mb-0">Continuously learn and unlearn in fast-changing contexts</p>
+                    </div>
+                    <div class="card" data-competency="collaboration">
+                        <h4>🤝 Digital Collaboration</h4>
+                        <p class="mb-0">Enable productive teamwork across tools and time zones</p>
+                    </div>
+                    <div class="card" data-competency="ethics">
+                        <h4>⚖️ Tech Ethics</h4>
+                        <p class="mb-0">Navigate moral complexities of AI and data use</p>
+                    </div>
+                    <div class="card" data-competency="innovation">
+                        <h4>💡 Innovation Catalysis</h4>
+                        <p class="mb-0">Create conditions where breakthrough ideas emerge</p>
+                    </div>
+                    <div class="card" data-competency="change">
+                        <h4>🚀 Change Leadership</h4>
+                        <p class="mb-0">Guide organizations through digital transformation</p>
+                    </div>
+                    <div class="card" data-competency="resilience">
+                        <h4>🛡️ Digital Resilience</h4>
+                        <p class="mb-0">Build systems and cultures that thrive under stress</p>
+                    </div>
+                </div>
+
+                <!-- Competency Detail Panel -->
+                <div class="panel" id="competency-detail" style="display: none;">
+                    <div id="competency-content">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Expandable Deep Dives for Each Competency -->
+                <div style="margin-top: 48px;">
+                    <h3>Deep Dive: Each Competency Explained</h3>
+                    
+                    <div class="expandable" id="exp-strategic">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-strategic')">
+                            <span class="expandable-title">🎯 Strategic Technology Vision</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> The ability to see how emerging technologies connect to business value, competitive advantage, and societal impact—then articulate that vision compellingly.</p>
+                            
+                            <p><strong>Why it matters:</strong> Research from MIT Sloan (2023) shows that organizations with leaders who can articulate clear tech-strategy alignment are 2.3x more likely to achieve their digital transformation goals.</p>
+                            
+                            <h4>Key Behaviors</h4>
+                            <ul class="checklist">
+                                <li class="checklist-item" onclick="toggleCheck(this)">
+                                    <span class="checklist-checkbox"></span>
+                                    <div class="checklist-content">
+                                        <h4>Technology Scanning</h4>
+                                        <p>Regularly explore emerging technologies before they become mainstream</p>
+                                    </div>
+                                </li>
+                                <li class="checklist-item" onclick="toggleCheck(this)">
+                                    <span class="checklist-checkbox"></span>
+                                    <div class="checklist-content">
+                                        <h4>Business Translation</h4>
+                                        <p>Convert technical possibilities into business language stakeholders understand</p>
+                                    </div>
+                                </li>
+                                <li class="checklist-item" onclick="toggleCheck(this)">
+                                    <span class="checklist-checkbox"></span>
+                                    <div class="checklist-content">
+                                        <h4>Ecosystem Thinking</h4>
+                                        <p>Understand how technologies interact with partners, customers, and competitors</p>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <h4>Practical Application</h4>
+                            <p>Hold a monthly "Tech Horizons" review where your team presents one emerging technology and its potential business implications. Rotate who presents to build this muscle across your organization.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable" id="exp-data">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-data')">
+                            <span class="expandable-title">📊 Data Fluency</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> The capacity to ask the right questions of data, interpret results critically, and make decisions that balance quantitative insights with qualitative judgment.</p>
+                            
+                            <p><strong>Why it matters:</strong> Harvard Business Review (2024) found that data-fluent leaders make decisions 5x faster and with 23% better outcomes than peers who delegate all data work.</p>
+                            
+                            <h4>This Is NOT About...</h4>
+                            <ul>
+                                <li>Being able to write SQL or build dashboards yourself</li>
+                                <li>Trusting data blindly without questioning sources</li>
+                                <li>Replacing human judgment with algorithms</li>
+                            </ul>
+
+                            <h4>This IS About...</h4>
+                            <ul>
+                                <li>Knowing which questions data can and cannot answer</li>
+                                <li>Understanding sampling bias, correlation vs. causation, and confidence intervals</li>
+                                <li>Building teams where data and intuition dialogue productively</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="expandable" id="exp-adaptive">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-adaptive')">
+                            <span class="expandable-title">🔄 Adaptive Learning Agility</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> The meta-skill of learning how to learn—quickly acquiring new knowledge domains, unlearning outdated mental models, and applying insights across contexts.</p>
+                            
+                            <p><strong>Why it matters:</strong> World Economic Forum (2025) identifies learning agility as the #1 skill for future work. Technology half-lives have shrunk from 10 years to 2-3 years.</p>
+                            
+                            <h4>The Learning Agility Framework</h4>
+                            <ol>
+                                <li><strong>Mental Agility:</strong> Embrace complexity, tolerate ambiguity, make fresh connections</li>
+                                <li><strong>People Agility:</strong> Learn from diverse perspectives, adapt communication styles</li>
+                                <li><strong>Change Agility:</strong> Experiment continuously, treat failures as data</li>
+                                <li><strong>Results Agility:</strong> Deliver outcomes in first-time situations</li>
+                            </ol>
+
+                            <h4>Weekly Practice</h4>
+                            <p>Dedicate 2 hours weekly to deliberate learning outside your expertise. Track what you learned and one way you might apply it. Share with your team monthly.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable" id="exp-collaboration">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-collaboration')">
+                            <span class="expandable-title">🤝 Digital Collaboration Excellence</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> Mastery of enabling productive collaboration across digital tools, time zones, and cultural contexts—creating belonging and alignment without physical proximity.</p>
+                            
+                            <p><strong>Why it matters:</strong> Microsoft Work Trend Index (2024) shows teams with strong digital collaboration practices are 31% more productive and report 25% higher wellbeing.</p>
+                            
+                            <h4>The Digital Collaboration Stack</h4>
+                            <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+                                <tr style="border-bottom: 1px solid var(--text-muted);">
+                                    <td style="padding: 12px;"><strong>Layer</strong></td>
+                                    <td style="padding: 12px;"><strong>What It Covers</strong></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <td style="padding: 12px;">Tools</td>
+                                    <td style="padding: 12px;">Selecting and optimizing collaboration platforms</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <td style="padding: 12px;">Rituals</td>
+                                    <td style="padding: 12px;">Structured practices that create rhythm and connection</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                    <td style="padding: 12px;">Norms</td>
+                                    <td style="padding: 12px;">Shared expectations about response times, availability, documentation</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px;">Culture</td>
+                                    <td style="padding: 12px;">The invisible fabric of trust, psychological safety, and belonging</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="expandable" id="exp-ethics">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-ethics')">
+                            <span class="expandable-title">⚖️ Technology Ethics & Responsibility</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> The wisdom to navigate moral complexities of AI, data privacy, algorithmic bias, and societal impact—building technology that serves human flourishing.</p>
+                            
+                            <p><strong>Why it matters:</strong> Stanford HAI (2024) research shows 78% of consumers will switch from companies with poor AI ethics. Regulatory frameworks (EU AI Act, emerging US standards) now mandate ethical governance.</p>
+                            
+                            <h4>The Ethics Decision Tree</h4>
+                            <ol>
+                                <li>Who could be harmed by this technology? (Direct and indirect stakeholders)</li>
+                                <li>What are the failure modes? (When it breaks, who suffers?)</li>
+                                <li>Is there informed consent? (Do users understand what's happening?)</li>
+                                <li>Can we audit and explain it? (Transparency and accountability)</li>
+                                <li>Does it amplify or reduce inequality?</li>
+                            </ol>
+
+                            <h4>Quarterly Ethics Review</h4>
+                            <p>Conduct quarterly reviews of your AI/data systems using the questions above. Include diverse voices—not just engineers, but users, ethicists, and potentially impacted communities.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable" id="exp-innovation">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-innovation')">
+                            <span class="expandable-title">💡 Innovation Catalysis</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> Creating the conditions, incentives, and psychological safety where breakthrough ideas emerge, are tested, and either scale or fail fast.</p>
+                            
+                            <p><strong>Why it matters:</strong> BCG Innovation Index (2024) shows companies with strong innovation cultures generate 2.5x more revenue from new products and services.</p>
+                            
+                            <h4>The Innovation Climate Factors</h4>
+                            <ul>
+                                <li><strong>Challenge:</strong> Is the work meaningful and engaging?</li>
+                                <li><strong>Freedom:</strong> Do people have autonomy in how they solve problems?</li>
+                                <li><strong>Idea Time:</strong> Is there slack for exploration beyond immediate deliverables?</li>
+                                <li><strong>Playfulness:</strong> Is there psychological safety to experiment?</li>
+                                <li><strong>Debate:</strong> Can ideas be challenged constructively?</li>
+                                <li><strong>Risk-Taking:</strong> Are smart failures celebrated as learning?</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="expandable" id="exp-change">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-change')">
+                            <span class="expandable-title">🚀 Change Leadership</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> The ability to guide organizations through digital transformation—managing resistance, building coalitions, and sustaining momentum through inevitable setbacks.</p>
+                            
+                            <p><strong>Why it matters:</strong> McKinsey (2024) reports 70% of digital transformations fail, primarily due to people and culture factors, not technology.</p>
+                            
+                            <h4>The Change Leadership Playbook</h4>
+                            <ol>
+                                <li><strong>Create Urgency:</strong> Help people feel why change is necessary now</li>
+                                <li><strong>Build Coalition:</strong> Assemble influencers across the organization</li>
+                                <li><strong>Craft Vision:</strong> Paint a compelling picture of the future state</li>
+                                <li><strong>Communicate Relentlessly:</strong> 7x more than you think necessary</li>
+                                <li><strong>Empower Action:</strong> Remove barriers and give people agency</li>
+                                <li><strong>Generate Wins:</strong> Celebrate visible progress early and often</li>
+                                <li><strong>Anchor Change:</strong> Embed new behaviors into culture and systems</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="expandable" id="exp-resilience">
+                        <div class="expandable-header" onclick="toggleExpandable('exp-resilience')">
+                            <span class="expandable-title">🛡️ Digital Resilience</span>
+                            <span class="expandable-icon">+</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p><strong>What it is:</strong> Building systems, teams, and cultures that not only withstand disruption but become stronger through stress—anticipating failures, recovering quickly, and learning continuously.</p>
+                            
+                            <p><strong>Why it matters:</strong> World Economic Forum (2025) identifies systemic resilience as a top priority as cyber threats, climate disruptions, and geopolitical instability intensify.</p>
+                            
+                            <h4>The Resilience Pyramid</h4>
+                            <ol>
+                                <li><strong>Technical Resilience:</strong> Redundancy, failovers, chaos engineering</li>
+                                <li><strong>Organizational Resilience:</strong> Diverse capabilities, flexible processes, scenario planning</li>
+                                <li><strong>Human Resilience:</strong> Wellbeing, sustainable pace, psychological safety</li>
+                                <li><strong>Strategic Resilience:</strong> Optionality, adaptive strategy, ecosystem relationships</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: SELF-ASSESSMENT TOOL
+        Interactive diagnostic for leaders
+        ======================================== 
+        -->
+        <section class="section" id="assessment">
+            <div class="container">
+                <div class="assessment-tool">
+                    <div class="assessment-intro">
+                        <h2>Digital Leadership Self-Assessment</h2>
+                        <p>
+                            Rate yourself honestly on each dimension. This is for your growth, not judgment.
+                            All responses stay local in your browser—nothing is sent anywhere.
+                        </p>
+                    </div>
+
+                    <div id="assessment-questions">
+                        <!-- Questions will be populated by JavaScript -->
+                    </div>
+
+                    <div class="btn-group" style="justify-content: center; margin-top: 32px;">
+                        <button class="btn btn-primary" onclick="calculateResults()">Calculate My Results</button>
+                        <button class="btn btn-secondary" onclick="resetAssessment()">Reset Assessment</button>
+                    </div>
+
+                    <div class="assessment-results" id="assessment-results">
+                        <h3>Your Digital Leadership Profile</h3>
+                        <p>Based on your self-assessment, here's your current competency profile:</p>
+                        <div id="results-bars">
+                            <!-- Results will be populated by JavaScript -->
+                        </div>
+                        <div style="margin-top: 24px;">
+                            <h4>Personalized Recommendations</h4>
+                            <div id="recommendations">
+                                <!-- Recommendations will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: LEADER'S PLAYBOOK
+        Practical actions, rituals, and templates
+        ======================================== 
+        -->
+        <section class="section" id="playbook">
+            <div class="container">
+                <h2>The Digital Leader's Playbook</h2>
+                <p>
+                    Concrete practices you can implement immediately. Each includes the "why" (research backing),
+                    the "what" (specific action), and the "how" (step-by-step guidance).
+                </p>
+
+                <div class="tabs">
+                    <div class="tab-list" role="tablist">
+                        <button class="tab-btn active" onclick="switchTab('daily')" role="tab">Daily Practices</button>
+                        <button class="tab-btn" onclick="switchTab('weekly')" role="tab">Weekly Rituals</button>
+                        <button class="tab-btn" onclick="switchTab('monthly')" role="tab">Monthly Reviews</button>
+                        <button class="tab-btn" onclick="switchTab('quarterly')" role="tab">Quarterly Deep Dives</button>
+                    </div>
+
+                    <div class="tab-panel active" id="tab-daily">
+                        <h3>Daily Leadership Practices</h3>
+                        <p>Small, consistent actions that compound over time.</p>
+
+                        <ul class="checklist">
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Morning Tech Scan (10 min)</h4>
+                                    <p>Review one tech news source (Hacker News, MIT Tech Review, or industry-specific). Look for: emerging technologies, competitor moves, regulatory changes. Note one insight to share with your team.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Async Check-in Post (5 min)</h4>
+                                    <p>Post a brief update in your team channel: what you're working on, any blockers, one thing you learned. Model the transparency you want to see.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>One Coaching Conversation (15 min)</h4>
+                                    <p>Have at least one growth-focused conversation with a team member. Ask: "What's challenging you right now?" and "How can I help?"</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Decision Journal Entry (5 min)</h4>
+                                    <p>Record one significant decision you made: what you decided, why, what data informed it, and what you expected to happen. Review monthly for patterns.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>End-of-Day Reflection (5 min)</h4>
+                                    <p>Before closing, ask: "What did I learn today? Where did I add value? What would I do differently?" Capture one insight.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-weekly">
+                        <h3>Weekly Leadership Rituals</h3>
+                        <p>Structured practices that create rhythm and continuous improvement.</p>
+
+                        <ul class="checklist">
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Tech Deep Dive (2 hours)</h4>
+                                    <p>Dedicate uninterrupted time to learning one technology in depth. Read documentation, watch tutorials, or build a small prototype. Maintain beginner's mind.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Skip-Level Connection (30 min)</h4>
+                                    <p>Meet with someone 2+ levels below you in the organization. Ask about their experience, challenges, and ideas. Listen more than you talk.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Metric Review & Sense-Making (45 min)</h4>
+                                    <p>Review key dashboards. Don't just look at numbers—ask: What's the story? What's surprising? What questions should we be asking?</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Cross-Functional Coffee (30 min)</h4>
+                                    <p>Meet informally with a peer from another function (Sales, Marketing, Legal, Finance). Understand their world. Find collaboration opportunities.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Week Retrospective (20 min)</h4>
+                                    <p>Friday reflection: What went well? What didn't? What will I do differently next week? Share one learning with your team.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-monthly">
+                        <h3>Monthly Leadership Reviews</h3>
+                        <p>Stepping back to see patterns and adjust course.</p>
+
+                        <ul class="checklist">
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Decision Journal Review</h4>
+                                    <p>Review your decision entries from the past month. Look for: decision quality, bias patterns, information gaps, areas where you were overconfident or underconfident.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>1:1 Quality Audit</h4>
+                                    <p>Review your 1:1 meeting notes. Are you having real conversations or status updates? What growth conversations have you had? Who needs more attention?</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Tech Landscape Brief</h4>
+                                    <p>Write a 1-page brief for your team: what's changed in our technology landscape this month? New tools, competitor moves, industry trends. Share and discuss.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Team Health Check</h4>
+                                    <p>Run a simple team health survey: How energized are people? How aligned? Where are the friction points? Act on what you learn.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-quarterly">
+                        <h3>Quarterly Leadership Deep Dives</h3>
+                        <p>Strategic reflection and capability building.</p>
+
+                        <ul class="checklist">
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Strategy Refresh</h4>
+                                    <p>Review and update your technology strategy. What's changed in the environment? Are our bets still right? What new opportunities or threats have emerged?</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Competency Self-Assessment</h4>
+                                    <p>Re-take this assessment. Compare to previous quarter. Where have you grown? Where do you need to focus next quarter?</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Ethics & Risk Review</h4>
+                                    <p>Review your AI and data systems through an ethics lens. Update risk registers. Ensure compliance with evolving regulations.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>External Learning</h4>
+                                    <p>Attend one external event (conference, meetup, course). Bring back insights to share with your organization.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: 30-DAY EXPERIMENT
+        Structured transformation journey
+        ======================================== 
+        -->
+        <section class="section" id="experiment">
+            <div class="container">
+                <h2>The 30-Day Digital Leadership Experiment</h2>
+                <p>
+                    A structured journey to build your digital leadership capabilities through deliberate practice.
+                    Each week focuses on different competencies, with specific actions and reflection points.
+                </p>
+
+                <div class="progress-tracker">
+                    <div class="progress-header">
+                        <h3>Your Progress</h3>
+                        <div class="progress-stats">
+                            <div class="progress-stat">
+                                <div class="progress-stat-value" id="days-complete">0</div>
+                                <div class="progress-stat-label">Days Complete</div>
+                            </div>
+                            <div class="progress-stat">
+                                <div class="progress-stat-value" id="actions-complete">0</div>
+                                <div class="progress-stat-label">Actions Taken</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-fill" style="width: 0%;">0%</div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">
+                        Progress is saved locally in your browser. Use the checkboxes below to track your journey.
+                    </p>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 1: Days 1-7</span>
+                        <h3 class="timeline-title">Foundation: Self-Awareness & Scanning</h3>
+                        <p>This week focuses on understanding your current state and building habits of environmental awareness.</p>
+                        <ul class="timeline-actions">
+                            <li>Complete the self-assessment above and note your top 2 growth areas</li>
+                            <li>Set up a daily 10-minute tech scanning routine (pick one source)</li>
+                            <li>Start a decision journal (digital or physical)</li>
+                            <li>Schedule 3 skip-level conversations for this month</li>
+                            <li>Identify one AI/ML tool relevant to your work and experiment with it</li>
+                            <li>End-of-week reflection: What surprised you about your assessment?</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 2: Days 8-14</span>
+                        <h3 class="timeline-title">Connection: Teams & Collaboration</h3>
+                        <p>This week focuses on how you enable others and build digital collaboration excellence.</p>
+                        <ul class="timeline-actions">
+                            <li>Audit your team's collaboration tools—what's working? What's friction?</li>
+                            <li>Introduce one new collaboration ritual with your team</li>
+                            <li>Have a coaching conversation with each direct report about their growth</li>
+                            <li>Practice async communication: document a decision that normally would be a meeting</li>
+                            <li>Run a simple team health check survey</li>
+                            <li>End-of-week reflection: Where do your team's collaboration patterns need work?</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 3: Days 15-21</span>
+                        <h3 class="timeline-title">Strategy: Vision & Change Leadership</h3>
+                        <p>This week focuses on your ability to see ahead and guide transformation.</p>
+                        <ul class="timeline-actions">
+                            <li>Write a 1-page technology vision for your team/area</li>
+                            <li>Present your vision to your team and gather feedback</li>
+                            <li>Identify one change initiative that's stuck—diagnose why</li>
+                            <li>Build a change coalition: who are the influencers you need?</li>
+                            <li>Create a "Tech Horizons" presentation on one emerging technology</li>
+                            <li>End-of-week reflection: Is your vision compelling? What's missing?</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-week">Week 4: Days 22-30</span>
+                        <h3 class="timeline-title">Integration: Ethics, Innovation & Resilience</h3>
+                        <p>This week brings together the competencies into a sustainable leadership practice.</p>
+                        <ul class="timeline-actions">
+                            <li>Conduct an ethics review of one AI/data system your team uses</li>
+                            <li>Create psychological safety: publicly share a failure and what you learned</li>
+                            <li>Run a "pre-mortem" on an upcoming project: what could go wrong?</li>
+                            <li>Set up ongoing practices: what rituals will you continue?</li>
+                            <li>Re-take the self-assessment—compare to Day 1</li>
+                            <li>Document your top 3 insights and commitments going forward</li>
+                            <li>Share your journey with a peer leader</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Experiment Reflection Journal</h3>
+                    <p>Use this space to capture your daily reflections. Your notes are saved locally.</p>
+                    <textarea 
+                        id="experiment-journal" 
+                        style="width: 100%; min-height: 200px; background: var(--bg-elevated); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 16px; color: var(--text-primary); font-family: var(--font-body); font-size: 1rem; resize: vertical;"
+                        placeholder="Day 1: Today I completed the self-assessment and was surprised to find that..."
+                        oninput="saveJournal()"
+                    ></textarea>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+                        Auto-saved to your browser's local storage. Clear your browser data to reset.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: 1-MEETING VERSION
+        For time-constrained leaders
+        ======================================== 
+        -->
+        <section class="section" id="meeting">
+            <div class="container">
+                <h2>The 1-Meeting Version: Digital Leadership Kickstart</h2>
+                <p>
+                    Only have 60 minutes? Use this workshop format to introduce digital leadership competencies 
+                    to your team and create immediate action commitments.
+                </p>
+
+                <div class="meeting-template">
+                    <div class="meeting-header">
+                        <div class="meeting-icon">📋</div>
+                        <div>
+                            <h3 style="margin: 0;">Digital Leadership Kickstart Workshop</h3>
+                            <div class="meeting-meta">
+                                <span>⏱️ 60 minutes</span>
+                                <span>👥 4-12 participants</span>
+                                <span>🎯 Team alignment + individual commitments</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="agenda-item">
+                        <div class="agenda-time">0:00-0:05</div>
+                        <div class="agenda-content">
+                            <h4>Opening: Why This Matters Now</h4>
+                            <p>Set context: the convergence of technology, strategy, and leadership. Share one stat that makes the case for digital leadership development.</p>
+                        </div>
+                    </div>
+
+                    <div class="agenda-item">
+                        <div class="agenda-time">0:05-0:15</div>
+                        <div class="agenda-content">
+                            <h4>Framework Introduction: The 8 Competencies</h4>
+                            <p>Walk through each competency briefly (1 min each). Use the wheel visual. Ask participants to note which 2 resonate most and which 2 feel most underdeveloped.</p>
+                        </div>
+                    </div>
+
+                    <div class="agenda-item">
+                        <div class="agenda-time">0:15-0:25</div>
+                        <div class="agenda-content">
+                            <h4>Paired Discussion: Personal Reflection</h4>
+                            <p>Pairs discuss: "Which competency is your superpower? Which is your biggest growth edge? What's one experience that shaped your view?" Each person gets 3 minutes to share.</p>
+                        </div>
+                    </div>
+
+                    <div class="agenda-item">
+                        <div class="agenda-time">0:25-0:35</div>
+                        <div class="agenda-content">
+                            <h4>Team Assessment: Where Are We Collectively?</h4>
+                            <p>Quick poll: Rate your team's collective strength in each competency (1-5). Discuss: Where are we strong? Where are the gaps? Are there patterns?</p>
+                        </div>
+                    </div>
+
+                    <div class="agenda-item">
+                        <div class="agenda-time">0:35-0:45</div>
+                        <div class="agenda-content">
+                            <h4>Action Planning: Individual Commitments</h4>
+                            <p>Each person writes one specific commitment: "In the next 2 weeks, I will [action] to develop [competency]." Make it concrete and time-bound.</p>
+                        </div>
+                    </div>
+
+                    <div class="agenda-item">
+                        <div class="agenda-time">0:45-0:55</div>
+                        <div class="agenda-content">
+                            <h4>Sharing Circle: Commitments & Support</h4>
+                            <p>Each person shares their commitment in 30 seconds. Others can offer support or resources. Build accountability through public commitment.</p>
+                        </div>
+                    </div>
+
+                    <div class="agenda-item">
+                        <div class="agenda-time">0:55-1:00</div>
+                        <div class="agenda-content">
+                            <h4>Close: Next Steps & Check-In</h4>
+                            <p>Schedule a follow-up in 2 weeks to share progress. Point to resources (this guide). Thank participants for their commitment to growth.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📝 Pre-Work (Optional)</h4>
+                        <p>Send participants the competency framework in advance. Ask them to come prepared with one story of a leader who exemplified one of these competencies.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🛠️ Materials Needed</h4>
+                        <p>Competency wheel visual (printout or screen), timer, sticky notes for commitments, shared doc or channel for capturing commitments.</p>
+                    </div>
+                    <div class="card">
+                        <h4>✅ Success Criteria</h4>
+                        <p>Every participant leaves with one specific, time-bound commitment. Team has shared language for digital leadership. Follow-up is scheduled.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: METRICS & INDICATORS
+        What to measure and track
+        ======================================== 
+        -->
+        <section class="section" id="metrics">
+            <div class="container">
+                <h2>Metrics & Leading Indicators</h2>
+                <p>
+                    What gets measured gets managed—but measure the right things. These indicators help you 
+                    track digital leadership development at individual, team, and organizational levels.
+                </p>
+
+                <div class="tabs">
+                    <div class="tab-list">
+                        <button class="tab-btn active" onclick="switchTab('ind')">Individual</button>
+                        <button class="tab-btn" onclick="switchTab('team')">Team</button>
+                        <button class="tab-btn" onclick="switchTab('org')">Organization</button>
+                    </div>
+
+                    <div class="tab-panel active" id="tab-ind">
+                        <h3>Individual Leader Metrics</h3>
+                        <div class="metrics-dashboard">
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Learning Hours/Week</div>
+                                <div class="metric-trend up">Target: 2+ hrs</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Decision Journal Entries</div>
+                                <div class="metric-trend up">Target: 5+/week</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Cross-Functional Connections</div>
+                                <div class="metric-trend up">Target: 2+/month</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Coaching Conversations</div>
+                                <div class="metric-trend up">Target: 1+/day</div>
+                            </div>
+                        </div>
+
+                        <h4>Qualitative Indicators to Track</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 20px;">
+                            <li>Quality of strategic recommendations (peer feedback)</li>
+                            <li>Speed of learning new technologies (self-reported)</li>
+                            <li>Comfort with ambiguity and uncertainty</li>
+                            <li>Ability to translate tech concepts for non-technical audiences</li>
+                            <li>360° feedback on collaboration and inclusion behaviors</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-team">
+                        <h3>Team-Level Metrics</h3>
+                        <div class="metrics-dashboard">
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Psychological Safety Score</div>
+                                <div class="metric-trend up">Target: 4+/5</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Ideas Submitted/Quarter</div>
+                                <div class="metric-trend up">Target: 3+ per person</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Experiment Velocity</div>
+                                <div class="metric-trend up">Target: 2+/month</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Knowledge Sharing Sessions</div>
+                                <div class="metric-trend up">Target: 2+/month</div>
+                            </div>
+                        </div>
+
+                        <h4>Team Health Indicators</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 20px;">
+                            <li>Team NPS (would you recommend this team to a friend?)</li>
+                            <li>Collaboration friction score (how easy is it to get things done together?)</li>
+                            <li>Time to onboard new tech/tools</li>
+                            <li>Cross-team collaboration frequency</li>
+                            <li>Diversity of ideas in decision-making (measured by meeting participation)</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-panel" id="tab-org">
+                        <h3>Organizational Metrics</h3>
+                        <div class="metrics-dashboard">
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Digital Transformation Score</div>
+                                <div class="metric-trend up">Target: 4+/5</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Time to Market (New Features)</div>
+                                <div class="metric-trend down">Lower is better</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">Employee Digital Literacy</div>
+                                <div class="metric-trend up">Target: 80%+ proficient</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">—</div>
+                                <div class="metric-label">AI/Automation Adoption Rate</div>
+                                <div class="metric-trend up">Target: 50%+ of eligible</div>
+                            </div>
+                        </div>
+
+                        <h4>Strategic Indicators</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 20px;">
+                            <li>% of revenue from digitally-enabled products/services</li>
+                            <li>Digital talent attraction and retention rates</li>
+                            <li>Technology debt ratio (new capability investment vs. maintenance)</li>
+                            <li>Ethics incident rate (AI/data related)</li>
+                            <li>Ecosystem partnership health (API adoption, integration volume)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    <p class="callout-quote">
+                        "The best leading indicators for digital leadership are qualitative—the stories people 
+                        tell about how decisions get made, how failures are handled, and whether it's safe to 
+                        challenge the status quo."
+                    </p>
+                    <p class="callout-source">— Adapted from Amy Edmondson, Harvard Business School</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: RISKS & ETHICAL PITFALLS
+        Guidance on avoiding common mistakes
+        ======================================== 
+        -->
+        <section class="section" id="risks">
+            <div class="container">
+                <div class="risk-panel">
+                    <h3>Risks, Ethical Pitfalls & Anti-Abuse Guidance</h3>
+                    <p>
+                        Digital leadership power can be misused. This section addresses common failure modes 
+                        and provides guardrails for responsible leadership.
+                    </p>
+
+                    <div class="risk-grid">
+                        <div class="risk-item">
+                            <h4>Techno-Solutionism</h4>
+                            <p>The belief that every problem has a technological solution. Leads to implementing tools that don't address root causes.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Before any tech solution, ask: "What human or process change would solve this without technology?"
+                            </div>
+                        </div>
+
+                        <div class="risk-item">
+                            <h4>Surveillance Leadership</h4>
+                            <p>Using digital tools to monitor employees in ways that erode trust and autonomy. Productivity tracking can become invasive.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Make all monitoring transparent. Ask: "Would I be comfortable if this monitoring was applied to me and made public?"
+                            </div>
+                        </div>
+
+                        <div class="risk-item">
+                            <h4>Algorithmic Bias Blindness</h4>
+                            <p>Trusting AI outputs without examining the data and assumptions underneath. Can perpetuate discrimination at scale.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Require bias audits for any AI system affecting people. Include diverse perspectives in review processes.
+                            </div>
+                        </div>
+
+                        <div class="risk-item">
+                            <h4>Change Fatigue Induction</h4>
+                            <p>Overwhelming teams with continuous transformation initiatives. Leads to cynicism, burnout, and resistance.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Pace changes deliberately. Create stability zones. Measure and respect organizational capacity for change.
+                            </div>
+                        </div>
+
+                        <div class="risk-item">
+                            <h4>Exclusionary "Digital Native" Bias</h4>
+                            <p>Privileging those who grew up with technology over those with domain expertise. Age discrimination in digital clothing.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Value diverse learning paths. Pair digital fluency with domain wisdom. Create cross-generational learning pairs.
+                            </div>
+                        </div>
+
+                        <div class="risk-item">
+                            <h4>Data Privacy Erosion</h4>
+                            <p>Collecting more data than necessary, sharing it inappropriately, or failing to secure it adequately.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Apply data minimization principles. Regular privacy audits. Clear data retention and deletion policies.
+                            </div>
+                        </div>
+
+                        <div class="risk-item">
+                            <h4>Toxic Productivity Culture</h4>
+                            <p>Using digital tools to enable 24/7 availability expectations. "Always on" culture that leads to burnout.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Model boundaries. Set explicit norms about response times. Protect maker time and recovery periods.
+                            </div>
+                        </div>
+
+                        <div class="risk-item">
+                            <h4>Innovation Theater</h4>
+                            <p>Performative innovation activities (hackathons, labs) without follow-through. Creates cynicism and wastes resources.</p>
+                            <div class="mitigation">
+                                <strong>Mitigation:</strong> Only launch innovation initiatives with clear paths to implementation. Measure outcomes, not activities.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 32px;">
+                        <h4>The Leadership Ethics Checklist</h4>
+                        <p>Before implementing any digital leadership initiative, run through these questions:</p>
+                        <ul class="checklist">
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Who could this harm?</h4>
+                                    <p>Consider employees, customers, communities, environment—direct and indirect impacts.</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Is participation genuinely voluntary?</h4>
+                                    <p>Can people opt out without penalty? Are there power dynamics that make "choice" illusory?</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>What happens when this fails?</h4>
+                                    <p>All systems fail eventually. Who bears the cost? Is there a rollback plan?</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Would I be comfortable if this were public?</h4>
+                                    <p>The newspaper test: would you be proud if this decision were reported in the press?</p>
+                                </div>
+                            </li>
+                            <li class="checklist-item" onclick="toggleCheck(this)">
+                                <span class="checklist-checkbox"></span>
+                                <div class="checklist-content">
+                                    <h4>Have diverse perspectives been included?</h4>
+                                    <p>Who's not in the room? Whose voices are missing from this decision?</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        SECTION: RESOURCES & FURTHER LEARNING
+        ======================================== 
+        -->
+        <section class="section">
+            <div class="container">
+                <h2>Resources for Continued Learning</h2>
+                <p>
+                    This guide is a starting point. Here are recommended resources for deeper exploration, 
+                    organized by competency area.
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>📚 Research & Reports</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 20px; font-size: 0.9rem;">
+                            <li>MIT Sloan Management Review – Digital Leadership</li>
+                            <li>McKinsey Quarterly – Technology & Organization</li>
+                            <li>Deloitte Human Capital Trends (Annual)</li>
+                            <li>World Economic Forum Future of Jobs Report</li>
+                            <li>Harvard Business Review – AI & Leadership</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🎓 Courses & Programs</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 20px; font-size: 0.9rem;">
+                            <li>MIT Professional Education – Digital Leadership</li>
+                            <li>Stanford Lead – Executive Program</li>
+                            <li>INSEAD – Leading Digital Transformation</li>
+                            <li>Coursera – AI for Business (Multiple)</li>
+                            <li>LinkedIn Learning – Technology Management</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>🎙️ Podcasts & Communities</h4>
+                        <ul style="color: var(--text-secondary); padding-left: 20px; font-size: 0.9rem;">
+                            <li>a]16z Podcast</li>
+                            <li>HBR IdeaCast</li>
+                            <li>Lex Fridman Podcast (Tech Leaders)</li>
+                            <li>CTO Craft Community</li>
+                            <li>LeadDev Conference & Community</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+        ========================================
+        FOOTER
+        Zero Harm notice and closing
+        ======================================== 
+        -->
+        <footer class="footer">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>About This Guide</h4>
+                    <p>
+                        This comprehensive resource synthesizes research from 2020-2025 on digital leadership 
+                        competencies. It's designed for technology leaders, managers, educators, and anyone 
+                        building capability in the age of AI.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>How to Use</h4>
+                    <ul>
+                        <li>Start with the self-assessment</li>
+                        <li>Review the competency framework</li>
+                        <li>Pick 1-2 areas for focused development</li>
+                        <li>Use the 30-day experiment or 1-meeting format</li>
+                        <li>Track progress with suggested metrics</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Data & Privacy</h4>
+                    <p>
+                        All interactive features (assessment, journal, progress tracking) store data locally 
+                        in your browser only. No data is transmitted anywhere. Clear your browser data to reset.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ethics-notice">
+                <h4>🛡️ Zero Harm & Anti-Coercion Commitment</h4>
+                <p>
+                    This resource is designed to empower ethical, human-centered leadership. It must not be used 
+                    to manipulate, coerce, surveil, or harm individuals or communities. Technology leadership 
+                    carries responsibility—use these tools to create workplaces where people flourish, not suffer. 
+                    When in doubt, choose human wellbeing over efficiency, transparency over control, and 
+                    inclusion over speed.
+                </p>
+            </div>
+
+            <div class="footer-bottom">
+                <p>
+                    Digital Leadership Empowerment Guide | Research-grounded frameworks for the age of AI<br>
+                    Built with care for leaders who want to make technology work for humanity.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 
+    ========================================
+    JAVASCRIPT
+    Interactive functionality and local storage
+    ======================================== 
+    -->
+    <script>
+        // ===========================================
+        // PARTICLE ANIMATION SYSTEM
+        // Creates ambient floating particles with
+        // subtle glow effects and gentle movement
+        // ===========================================
+        
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouseX = 0;
+        let mouseY = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createParticles() {
+            particles = [];
+            const particleCount = Math.min(80, Math.floor(window.innerWidth / 20));
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    opacity: Math.random() * 0.5 + 0.2,
+                    hue: Math.random() > 0.5 ? 180 : 160 // Cyan or emerald
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach((p, i) => {
+                // Update position
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                // Wrap around edges
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                
+                // Draw particle with glow
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `hsla(${p.hue}, 80%, 60%, ${p.opacity})`;
+                ctx.fill();
+                
+                // Draw connections to nearby particles
+                particles.forEach((p2, j) => {
+                    if (i === j) return;
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `hsla(${p.hue}, 80%, 60%, ${0.1 * (1 - dist / 120)})`;
+                        ctx.stroke();
+                    }
+                });
+            });
+            
+            requestAnimationFrame(drawParticles);
+        }
+
+        // Initialize particles
+        resizeCanvas();
+        createParticles();
+        drawParticles();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            createParticles();
+        });
+
+        // ===========================================
+        // SELF-ASSESSMENT TOOL
+        // Questions and scoring logic
+        // ===========================================
+        
+        const assessmentQuestions = [
+            {
+                competency: 'Strategic Tech Vision',
+                question: 'How effectively can you articulate how emerging technologies connect to business strategy?',
+                id: 'strategic'
+            },
+            {
+                competency: 'Data Fluency',
+                question: 'How confident are you in interpreting data analyses and asking the right questions of data teams?',
+                id: 'data'
+            },
+            {
+                competency: 'Adaptive Learning',
+                question: 'How quickly can you learn a new technology domain and apply it to your work?',
+                id: 'adaptive'
+            },
+            {
+                competency: 'Digital Collaboration',
+                question: 'How effectively do you enable your team to collaborate across digital tools and time zones?',
+                id: 'collaboration'
+            },
+            {
+                competency: 'Tech Ethics',
+                question: 'How prepared are you to navigate ethical dilemmas involving AI, data privacy, and algorithmic bias?',
+                id: 'ethics'
+            },
+            {
+                competency: 'Innovation Catalysis',
+                question: 'How effectively do you create conditions where breakthrough ideas emerge from your team?',
+                id: 'innovation'
+            },
+            {
+                competency: 'Change Leadership',
+                question: 'How successfully have you led organizations through significant digital transformations?',
+                id: 'change'
+            },
+            {
+                competency: 'Digital Resilience',
+                question: 'How well do you build systems and cultures that thrive under stress and disruption?',
+                id: 'resilience'
+            }
+        ];
+
+        const scaleLabels = ['Novice', 'Developing', 'Competent', 'Proficient', 'Expert'];
+        let assessmentResponses = {};
+
+        function renderAssessment() {
+            const container = document.getElementById('assessment-questions');
+            
+            // Load saved responses
+            const saved = localStorage.getItem('dlAssessment');
+            if (saved) {
+                assessmentResponses = JSON.parse(saved);
+            }
+            
+            container.innerHTML = assessmentQuestions.map((q, qIdx) => `
+                <div class="assessment-question ${assessmentResponses[q.id] ? 'answered' : ''}" id="q-${q.id}">
+                    <p class="question-text">
+                        <strong>${qIdx + 1}. ${q.competency}:</strong> ${q.question}
+                    </p>
+                    <div class="question-scale">
+                        ${scaleLabels.map((label, idx) => `
+                            <div class="scale-option ${assessmentResponses[q.id] === idx + 1 ? 'selected' : ''}" 
+                                 onclick="selectOption('${q.id}', ${idx + 1})">
+                                <div style="font-size: 1.2rem; margin-bottom: 4px;">${idx + 1}</div>
+                                ${label}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectOption(questionId, value) {
+            assessmentResponses[questionId] = value;
+            localStorage.setItem('dlAssessment', JSON.stringify(assessmentResponses));
+            
+            // Update UI
+            const questionEl = document.getElementById(`q-${questionId}`);
+            questionEl.classList.add('answered');
+            
+            questionEl.querySelectorAll('.scale-option').forEach((opt, idx) => {
+                opt.classList.toggle('selected', idx + 1 === value);
+            });
+        }
+
+        function calculateResults() {
+            const allAnswered = assessmentQuestions.every(q => assessmentResponses[q.id]);
+            
+            if (!allAnswered) {
+                alert('Please answer all questions before calculating results.');
+                return;
+            }
+            
+            const resultsEl = document.getElementById('assessment-results');
+            const barsEl = document.getElementById('results-bars');
+            const recsEl = document.getElementById('recommendations');
+            
+            // Generate result bars
+            barsEl.innerHTML = assessmentQuestions.map(q => {
+                const score = assessmentResponses[q.id];
+                const percentage = (score / 5) * 100;
+                return `
+                    <div class="result-bar">
+                        <div class="result-label">
+                            <span>${q.competency}</span>
+                            <span>${scaleLabels[score - 1]} (${score}/5)</span>
+                        </div>
+                        <div class="result-track">
+                            <div class="result-fill" style="width: ${percentage}%;"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Generate recommendations based on lowest scores
+            const sorted = assessmentQuestions
+                .map(q => ({ ...q, score: assessmentResponses[q.id] }))
+                .sort((a, b) => a.score - b.score);
+            
+            const weakest = sorted.slice(0, 2);
+            const strongest = sorted.slice(-2).reverse();
+            
+            recsEl.innerHTML = `
+                <p><strong>Your growth areas:</strong> ${weakest.map(q => q.competency).join(' and ')}. 
+                Consider focusing your 30-day experiment on these competencies.</p>
+                <p><strong>Your strengths:</strong> ${strongest.map(q => q.competency).join(' and ')}. 
+                Consider how you can mentor others in these areas.</p>
+                <p><strong>Overall profile:</strong> ${getProfileSummary(assessmentResponses)}</p>
+            `;
+            
+            resultsEl.classList.add('visible');
+            resultsEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function getProfileSummary(responses) {
+            const avg = Object.values(responses).reduce((a, b) => a + b, 0) / Object.values(responses).length;
+            
+            if (avg >= 4.5) return "You demonstrate expert-level digital leadership across most dimensions. Focus on mentoring others and staying at the frontier.";
+            if (avg >= 3.5) return "You show strong digital leadership capabilities with room for targeted development. The 30-day experiment can help you reach the next level.";
+            if (avg >= 2.5) return "You have a solid foundation with significant growth opportunities. Consider both formal learning and deliberate practice.";
+            return "You're early in your digital leadership journey. This is an exciting time for growth—start with the fundamentals and build steadily.";
+        }
+
+        function resetAssessment() {
+            if (confirm('This will clear all your assessment responses. Continue?')) {
+                assessmentResponses = {};
+                localStorage.removeItem('dlAssessment');
+                document.getElementById('assessment-results').classList.remove('visible');
+                renderAssessment();
+            }
+        }
+
+        // Initialize assessment on page load
+        renderAssessment();
+
+        // ===========================================
+        // EXPANDABLE SECTIONS
+        // Toggle functionality
+        // ===========================================
+        
+        function toggleExpandable(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('open');
+        }
+
+        // ===========================================
+        // CHECKLIST FUNCTIONALITY
+        // Local storage for progress tracking
+        // ===========================================
+        
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            saveChecklistState();
+            updateProgress();
+        }
+
+        function saveChecklistState() {
+            const checked = [];
+            document.querySelectorAll('.checklist-item.checked').forEach((el, idx) => {
+                checked.push(idx);
+            });
+            localStorage.setItem('dlChecklist', JSON.stringify(checked));
+        }
+
+        function loadChecklistState() {
+            const saved = localStorage.getItem('dlChecklist');
+            if (saved) {
+                const checked = JSON.parse(saved);
+                document.querySelectorAll('.checklist-item').forEach((el, idx) => {
+                    if (checked.includes(idx)) {
+                        el.classList.add('checked');
+                    }
+                });
+            }
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.timeline-actions li').length;
+            const checked = document.querySelectorAll('.checklist-item.checked').length;
+            const percentage = Math.round((checked / Math.max(total, 1)) * 100);
+            
+            document.getElementById('days-complete').textContent = Math.min(30, Math.round(checked / 2));
+            document.getElementById('actions-complete').textContent = checked;
+            
+            const fill = document.getElementById('progress-fill');
+            fill.style.width = percentage + '%';
+            fill.textContent = percentage + '%';
+        }
+
+        loadChecklistState();
+        updateProgress();
+
+        // ===========================================
+        // TAB SWITCHING
+        // ===========================================
+        
+        function switchTab(tabId) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update panels
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            
+            const targetPanel = document.getElementById('tab-' + tabId);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        }
+
+        // ===========================================
+        // JOURNAL FUNCTIONALITY
+        // ===========================================
+        
+        function saveJournal() {
+            const content = document.getElementById('experiment-journal').value;
+            localStorage.setItem('dlJournal', content);
+        }
+
+        function loadJournal() {
+            const saved = localStorage.getItem('dlJournal');
+            if (saved) {
+                document.getElementById('experiment-journal').value = saved;
+            }
+        }
+
+        loadJournal();
+
+        // ===========================================
+        // TABLE OF CONTENTS HIGHLIGHTING
+        // ===========================================
+        
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-link');
+
+        function updateTocHighlight() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateTocHighlight);
+
+        // ===========================================
+        // COMPETENCY WHEEL INTERACTION
+        // ===========================================
+        
+        const competencyDetails = {
+            strategic: {
+                title: 'Strategic Technology Vision',
+                description: 'The ability to see how emerging technologies connect to business value, competitive advantage, and societal impact.',
+                practices: ['Technology horizon scanning', 'Business-tech translation', 'Ecosystem mapping'],
+                resources: ['MIT Tech Review', 'Gartner Hype Cycles', 'Industry analyst reports']
+            },
+            data: {
+                title: 'Data Fluency',
+                description: 'The capacity to ask the right questions of data, interpret results critically, and balance quantitative insights with judgment.',
+                practices: ['Data storytelling', 'Statistical literacy', 'Bias awareness'],
+                resources: ['Calling Bullshit (Book)', 'DataCamp courses', 'Internal analytics training']
+            },
+            adaptive: {
+                title: 'Adaptive Learning Agility',
+                description: 'The meta-skill of learning how to learn—quickly acquiring new knowledge domains and applying insights across contexts.',
+                practices: ['Deliberate learning time', 'Cross-domain exploration', 'Failure reflection'],
+                resources: ['Learning How to Learn (Coursera)', 'Ultralearning (Book)', 'Mentorship programs']
+            },
+            collaboration: {
+                title: 'Digital Collaboration Excellence',
+                description: 'Mastery of enabling productive collaboration across digital tools, time zones, and cultural contexts.',
+                practices: ['Async communication design', 'Tool optimization', 'Ritual creation'],
+                resources: ['Remote (Book)', 'GitLab Handbook', 'Collaboration tool training']
+            },
+            ethics: {
+                title: 'Technology Ethics & Responsibility',
+                description: 'The wisdom to navigate moral complexities of AI, data privacy, algorithmic bias, and societal impact.',
+                practices: ['Ethics review processes', 'Stakeholder impact mapping', 'Diverse perspective inclusion'],
+                resources: ['Stanford HAI', 'AI Ethics Guidelines', 'Ethics committee participation']
+            },
+            innovation: {
+                title: 'Innovation Catalysis',
+                description: 'Creating the conditions, incentives, and psychological safety where breakthrough ideas emerge and scale.',
+                practices: ['Idea time protection', 'Experiment frameworks', 'Failure celebration'],
+                resources: ['The Innovators Dilemma', 'IDEO methodology', 'Innovation labs']
+            },
+            change: {
+                title: 'Change Leadership',
+                description: 'The ability to guide organizations through digital transformation—managing resistance and sustaining momentum.',
+                practices: ['Coalition building', 'Vision communication', 'Quick wins generation'],
+                resources: ['Leading Change (Kotter)', 'ADKAR model', 'Change management certification']
+            },
+            resilience: {
+                title: 'Digital Resilience',
+                description: 'Building systems, teams, and cultures that not only withstand disruption but become stronger through stress.',
+                practices: ['Chaos engineering', 'Scenario planning', 'Recovery exercises'],
+                resources: ['Antifragile (Book)', 'SRE practices', 'Business continuity planning']
+            }
+        };
+
+        document.querySelectorAll('[data-competency]').forEach(el => {
+            el.addEventListener('click', () => {
+                const competency = el.dataset.competency;
+                const details = competencyDetails[competency];
+                
+                const detailPanel = document.getElementById('competency-detail');
+                const content = document.getElementById('competency-content');
+                
+                content.innerHTML = `
+                    <h3>${details.title}</h3>
+                    <p>${details.description}</p>
+                    <h4>Key Practices</h4>
+                    <ul style="color: var(--text-secondary); padding-left: 20px;">
+                        ${details.practices.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                    <h4>Learning Resources</h4>
+                    <ul style="color: var(--text-secondary); padding-left: 20px;">
+                        ${details.resources.map(r => `<li>${r}</li>`).join('')}
+                    </ul>
+                `;
+                
+                detailPanel.style.display = 'block';
+                detailPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Update active state
+                document.querySelectorAll('[data-competency]').forEach(e => e.classList.remove('active'));
+                el.classList.add('active');
+            });
+        });
+
+        // ===========================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ===========================================
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        console.log('Digital Leadership Empowerment Guide loaded successfully.');
+        console.log('All data is stored locally in your browser. No external transmissions.');
+    </script>
+</body>
+</html>
