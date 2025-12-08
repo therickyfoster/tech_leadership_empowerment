@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open-Source, Ecosystem & Partnership-Based Leadership</title>
+    <style>
+        :root {
+            --bg-deep: #0d1117;
+            --bg-surface: #161b22;
+            --bg-elevated: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-green: #3fb950;
+            --accent-blue: #58a6ff;
+            --accent-purple: #a371f7;
+            --accent-orange: #d29922;
+            --font-display: 'Segoe UI', system-ui, sans-serif;
+            --font-body: Georgia, serif;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); line-height: 1.75; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 80px 0; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; }
+        h1 { font-size: clamp(2rem, 4vw, 3rem); background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; }
+        h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.3rem; color: var(--accent-green); margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 24px; background: radial-gradient(ellipse at top, rgba(63,185,80,0.1), transparent 50%); }
+        .hero-content { max-width: 850px; }
+        .badge { display: inline-block; padding: 6px 16px; background: rgba(63,185,80,0.15); border: 1px solid var(--accent-green); border-radius: 50px; font-family: var(--font-display); font-size: 0.8rem; color: var(--accent-green); margin-bottom: 20px; }
+        .card { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; transition: all 0.3s ease; }
+        .card:hover { border-color: var(--accent-blue); transform: translateY(-3px); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 32px 0; }
+        .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 40px 0; }
+        .model-card { padding: 28px; background: var(--bg-elevated); border-radius: var(--radius-lg); border-left: 4px solid var(--accent-blue); }
+        .ecosystem-visual { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 40px 0; flex-wrap: wrap; }
+        .ecosystem-node { padding: 20px 30px; background: var(--bg-surface); border: 2px solid var(--accent-green); border-radius: 50px; font-family: var(--font-display); font-weight: 600; }
+        .ecosystem-node.center { background: var(--accent-green); color: var(--bg-deep); border-radius: 50%; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; }
+        .timeline { position: relative; padding-left: 36px; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--accent-green), var(--accent-blue), var(--accent-purple)); }
+        .week-block { position: relative; margin-bottom: 32px; }
+        .week-block::before { content: ''; position: absolute; left: -30px; top: 6px; width: 14px; height: 14px; background: var(--accent-green); border: 3px solid var(--bg-deep); border-radius: 50%; }
+        .week-label { font-family: var(--font-display); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-green); }
+        .week-title { font-family: var(--font-display); font-size: 1.1rem; margin: 6px 0 12px; }
+        .actions-box { background: var(--bg-surface); border-radius: var(--radius-md); padding: 20px; }
+        .action-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .action-row:last-child { border-bottom: none; }
+        .action-check { width: 22px; height: 22px; border: 2px solid var(--text-secondary); border-radius: 4px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .action-check.done { background: var(--accent-green); border-color: var(--accent-green); }
+        .action-check.done::after { content: '✓'; color: var(--bg-deep); font-weight: bold; font-size: 0.8rem; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(63,185,80,0.3); }
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+        .callout { padding: 28px; background: var(--bg-elevated); border-left: 4px solid var(--accent-purple); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: 28px 0; }
+        .callout-quote { font-size: 1.15rem; font-style: italic; color: var(--text-primary); margin-bottom: 12px; }
+        .callout-source { font-size: 0.9rem; color: var(--text-secondary); }
+        .principle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 32px 0; }
+        .principle-card { padding: 24px; background: var(--bg-elevated); border-radius: var(--radius-md); border-top: 3px solid var(--accent-purple); }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 32px 0; }
+        .metric { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 24px; text-align: center; }
+        .metric-val { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent-green); }
+        .metric-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 6px; }
+        .risk-section { background: rgba(210,153,34,0.1); border: 1px solid var(--accent-orange); border-radius: var(--radius-lg); padding: 40px; margin: 40px 0; }
+        .risk-item { background: var(--bg-surface); border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; }
+        .risk-item h4 { color: var(--accent-orange); margin-bottom: 10px; }
+        .risk-item h4::before { content: '⚠️ '; }
+        .mitigation { margin-top: 12px; padding: 12px; background: rgba(63,185,80,0.1); border-radius: 6px; font-size: 0.9rem; }
+        .mitigation strong { color: var(--accent-green); }
+        .footer { background: var(--bg-surface); border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 24px 40px; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto 40px; }
+        .footer h4 { margin-bottom: 16px; }
+        .footer p, .footer li { font-size: 0.9rem; color: var(--text-secondary); }
+        .footer ul { list-style: none; }
+        .ethics-box { max-width: 1100px; margin: 0 auto 32px; padding: 24px; background: rgba(63,185,80,0.1); border: 1px solid var(--accent-green); border-radius: var(--radius-md); text-align: center; }
+        .ethics-box h4 { color: var(--accent-green); margin-bottom: 8px; }
+        .ethics-box p { font-size: 0.85rem; margin: 0; }
+        .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: var(--text-secondary); max-width: 1100px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">Ecosystem Leadership</span>
+            <h1>Open-Source, Ecosystem & Partnership-Based Leadership</h1>
+            <p style="font-size: 1.15rem; max-width: 750px; margin: 0 auto 24px;">
+                The most impactful technology is built in the open, with partners, and as part of thriving ecosystems. Learn to lead beyond your organization's boundaries.
+            </p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="#models" class="btn btn-primary">Business Models</a>
+                <a href="#principles" class="btn btn-secondary">OSS Principles</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>Why Open & Ecosystem Thinking Matters</h2>
+            <p>The most successful technology companies don't build everything themselves—they build ecosystems. Open source, partnerships, and platform thinking create sustainable competitive advantages.</p>
+
+            <div class="callout">
+                <p class="callout-quote">"In the long run, open source wins. The collective intelligence of thousands of contributors beats any single company's R&D team."</p>
+                <p class="callout-source">— Jim Whitehurst, former CEO of Red Hat</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📈 Open Source Impact</h3>
+                    <p>96% of codebases contain open source components. OSS is the foundation of modern software. Understanding it is essential.</p>
+                </div>
+                <div class="card">
+                    <h3>🤝 Partnership Value</h3>
+                    <p>Companies with strong partner ecosystems grow 2-3x faster. No one can build everything—smart partnerships accelerate.</p>
+                </div>
+                <div class="card">
+                    <h3>🌐 Platform Economics</h3>
+                    <p>Platform businesses capture more value than traditional models. Enable others to build on your foundation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="models">
+        <div class="container">
+            <h2>Open Source Business Models</h2>
+            <p>How organizations create value while giving away code.</p>
+
+            <div class="model-grid">
+                <div class="model-card">
+                    <h3>🏢 Open Core</h3>
+                    <p>Core product is open source; premium features are proprietary. Community builds on the foundation; enterprise pays for extras.</p>
+                    <p style="font-size: 0.9rem; margin-top: 12px;"><em>Examples: GitLab, Elastic, MongoDB</em></p>
+                </div>
+                <div class="model-card">
+                    <h3>☁️ Cloud/SaaS</h3>
+                    <p>Open source the code; monetize the managed service. Users can self-host free or pay for convenience.</p>
+                    <p style="font-size: 0.9rem; margin-top: 12px;"><em>Examples: Confluent, HashiCorp, Databricks</em></p>
+                </div>
+                <div class="model-card">
+                    <h3>🎓 Support & Services</h3>
+                    <p>Product is free; expertise is paid. Training, consulting, and support contracts.</p>
+                    <p style="font-size: 0.9rem; margin-top: 12px;"><em>Examples: Red Hat (original model)</em></p>
+                </div>
+                <div class="model-card">
+                    <h3>🔄 Dual License</h3>
+                    <p>Open source under copyleft; commercial license for proprietary use. Choose your terms.</p>
+                    <p style="font-size: 0.9rem; margin-top: 12px;"><em>Examples: MySQL (historical), Qt</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="principles">
+        <div class="container">
+            <h2>Open Source Leadership Principles</h2>
+            <p>How to lead and participate in open source effectively.</p>
+
+            <div class="principle-grid">
+                <div class="principle-card">
+                    <h4>🌱 Contribute First</h4>
+                    <p>Build reputation by contributing before asking. Show up, help, and demonstrate value.</p>
+                </div>
+                <div class="principle-card">
+                    <h4>📖 Document Everything</h4>
+                    <p>Open source thrives on documentation. README, contributing guides, architecture docs.</p>
+                </div>
+                <div class="principle-card">
+                    <h4>🤝 Community Health</h4>
+                    <p>Invest in community management. Respond to issues. Welcome newcomers. Set clear expectations.</p>
+                </div>
+                <div class="principle-card">
+                    <h4>⚖️ License Clearly</h4>
+                    <p>Understand license implications. Communicate clearly. Don't surprise users with changes.</p>
+                </div>
+                <div class="principle-card">
+                    <h4>🔒 Security Matters</h4>
+                    <p>Open source requires open security. Responsible disclosure. Quick patching. SBOM transparency.</p>
+                </div>
+                <div class="principle-card">
+                    <h4>🎯 Governance</h4>
+                    <p>Clear decision-making processes. Meritocracy based on contribution. Transparent roadmaps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="partnerships">
+        <div class="container">
+            <h2>Partnership Leadership</h2>
+            <p>Building and managing strategic partnerships that create mutual value.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🎯 Strategic Fit</h3>
+                    <p>Best partnerships have complementary strengths. What do they have that you need? What can you offer them? Win-win or don't bother.</p>
+                </div>
+                <div class="card">
+                    <h3>📋 Clear Agreements</h3>
+                    <p>Document expectations, responsibilities, and success metrics. Ambiguity kills partnerships. Regular reviews.</p>
+                </div>
+                <div class="card">
+                    <h3>🤝 Relationship Investment</h3>
+                    <p>Partnerships are relationships, not transactions. Regular communication. Joint planning. Shared celebrations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="experiment">
+        <div class="container">
+            <h2>30-Day Ecosystem Leadership Experiment</h2>
+            <p>Build your open source and partnership capabilities.</p>
+
+            <div class="timeline">
+                <div class="week-block">
+                    <div class="week-label">Week 1</div>
+                    <div class="week-title">Open Source Engagement</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Audit open source dependencies your team uses</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Contribute to one project you depend on (issue, PR, docs)</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Evaluate if any internal code could be open sourced</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Review your organization's OSS policy</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 2</div>
+                    <div class="week-title">Ecosystem Mapping</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Map your ecosystem: partners, competitors, adjacent players</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Identify potential partnership opportunities</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Reach out to one potential partner for exploratory conversation</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Attend a community meetup or conference (virtual or in-person)</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 3</div>
+                    <div class="week-title">Community Building</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Improve documentation for something your team owns</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Answer questions in a community forum or Stack Overflow</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Share knowledge: blog post, talk, or tutorial</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Welcome a newcomer to a community you're part of</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 4</div>
+                    <div class="week-title">Sustainability</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Create team norms for open source contribution</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Schedule regular partnership review meetings</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Plan longer-term ecosystem strategy</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Share learnings with organization</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="metrics">
+        <div class="container">
+            <h2>Ecosystem Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">OSS Contributions</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Partner Revenue %</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Community Growth</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Ecosystem NPS</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">External Adoption</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Partnership Health</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="risks">
+        <div class="container">
+            <div class="risk-section">
+                <h3>Ecosystem Pitfalls</h3>
+
+                <div class="risk-item">
+                    <h4>Taking Without Giving</h4>
+                    <p>Using open source without contributing back. Consuming community value without adding to it.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Budget time for contribution. Track and celebrate giving back.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>License Violations</h4>
+                    <p>Accidentally (or intentionally) violating open source licenses. Legal and reputational risk.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Clear policies. Automated scanning. Legal review for releases.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Partnership Imbalance</h4>
+                    <p>One-sided partnerships where one party extracts more value. Breeds resentment.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Regular value exchange review. Fair terms. Exit clauses.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Community Burnout</h4>
+                    <p>Over-relying on volunteer maintainers. Sustainable open source needs sustainable maintainers.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Fund maintainers. Diversify contributors. Set healthy boundaries.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>About This Guide</h4>
+                <p>Framework for ecosystem leadership, synthesizing open source best practices and partnership management.</p>
+            </div>
+            <div>
+                <h4>Key Sources</h4>
+                <ul>
+                    <li>Open Source Initiative</li>
+                    <li>Linux Foundation Research</li>
+                    <li>Platform Revolution</li>
+                    <li>GitHub Octoverse</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Data & Privacy</h4>
+                <p>All features store data locally. Nothing transmitted.</p>
+            </div>
+        </div>
+        <div class="ethics-box">
+            <h4>🛡️ Zero Harm & Anti-Coercion Commitment</h4>
+            <p>Open source must remain open. License changes that harm users or communities violate trust. Partnerships must be fair and transparent. Ecosystem power must not be used to lock in or coerce participants.</p>
+        </div>
+        <div class="footer-bottom">
+            <p>Open-Source, Ecosystem & Partnership Leadership | Building together, in the open</p>
+        </div>
+    </footer>
+</body>
+</html>
