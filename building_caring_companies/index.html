@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building "Companies That Care"</title>
+    <style>
+        :root {
+            --bg-deep: #faf7f5;
+            --bg-surface: #ffffff;
+            --bg-elevated: #f3ede8;
+            --text-primary: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --accent-rose: #be185d;
+            --accent-amber: #d97706;
+            --accent-emerald: #059669;
+            --accent-sky: #0284c7;
+            --font-display: 'Segoe UI', system-ui, sans-serif;
+            --font-body: Georgia, serif;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); line-height: 1.75; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 80px 0; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; }
+        h1 { font-size: clamp(2rem, 4vw, 3rem); background: linear-gradient(135deg, var(--accent-rose), var(--accent-amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; }
+        h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.3rem; color: var(--accent-rose); margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 24px; background: radial-gradient(ellipse at top, rgba(190,24,93,0.08), transparent 50%); }
+        .hero-content { max-width: 850px; }
+        .badge { display: inline-block; padding: 6px 16px; background: rgba(190,24,93,0.1); border: 1px solid var(--accent-rose); border-radius: 50px; font-family: var(--font-display); font-size: 0.8rem; color: var(--accent-rose); margin-bottom: 20px; }
+        .card { background: var(--bg-surface); border: 1px solid rgba(0,0,0,0.08); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .card:hover { border-color: var(--accent-rose); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 32px 0; }
+        .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 40px 0; }
+        .pillar-card { padding: 28px; background: var(--bg-surface); border-radius: var(--radius-lg); border-top: 4px solid var(--accent-emerald); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .pillar-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .practice-list { list-style: none; margin: 32px 0; }
+        .practice-item { display: flex; gap: 16px; padding: 20px; background: var(--bg-surface); border-radius: var(--radius-md); margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); align-items: flex-start; }
+        .practice-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .timeline { position: relative; padding-left: 36px; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--accent-rose), var(--accent-amber), var(--accent-emerald)); }
+        .week-block { position: relative; margin-bottom: 32px; }
+        .week-block::before { content: ''; position: absolute; left: -30px; top: 6px; width: 14px; height: 14px; background: var(--accent-rose); border: 3px solid var(--bg-deep); border-radius: 50%; }
+        .week-label { font-family: var(--font-display); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-rose); }
+        .week-title { font-family: var(--font-display); font-size: 1.1rem; margin: 6px 0 12px; }
+        .actions-box { background: var(--bg-surface); border-radius: var(--radius-md); padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .action-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .action-row:last-child { border-bottom: none; }
+        .action-check { width: 22px; height: 22px; border: 2px solid var(--text-secondary); border-radius: 4px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .action-check.done { background: var(--accent-emerald); border-color: var(--accent-emerald); }
+        .action-check.done::after { content: '✓'; color: white; font-weight: bold; font-size: 0.8rem; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-rose), var(--accent-amber)); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(190,24,93,0.2); }
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+        .callout { padding: 28px; background: var(--bg-surface); border-left: 4px solid var(--accent-sky); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: 28px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .callout-quote { font-size: 1.15rem; font-style: italic; color: var(--text-primary); margin-bottom: 12px; }
+        .callout-source { font-size: 0.9rem; color: var(--text-secondary); }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 32px 0; }
+        .metric { background: var(--bg-surface); border: 1px solid rgba(0,0,0,0.08); border-radius: var(--radius-md); padding: 24px; text-align: center; }
+        .metric-val { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent-emerald); }
+        .metric-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 6px; }
+        .risk-section { background: rgba(217,119,6,0.08); border: 1px solid var(--accent-amber); border-radius: var(--radius-lg); padding: 40px; margin: 40px 0; }
+        .risk-item { background: var(--bg-surface); border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; }
+        .risk-item h4 { color: var(--accent-amber); margin-bottom: 10px; }
+        .risk-item h4::before { content: '⚠️ '; }
+        .mitigation { margin-top: 12px; padding: 12px; background: rgba(5,150,105,0.08); border-radius: 6px; font-size: 0.9rem; }
+        .mitigation strong { color: var(--accent-emerald); }
+        .footer { background: var(--bg-surface); border-top: 1px solid rgba(0,0,0,0.08); padding: 60px 24px 40px; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto 40px; }
+        .footer h4 { margin-bottom: 16px; }
+        .footer p, .footer li { font-size: 0.9rem; color: var(--text-secondary); }
+        .footer ul { list-style: none; }
+        .ethics-box { max-width: 1100px; margin: 0 auto 32px; padding: 24px; background: rgba(5,150,105,0.08); border: 1px solid var(--accent-emerald); border-radius: var(--radius-md); text-align: center; }
+        .ethics-box h4 { color: var(--accent-emerald); margin-bottom: 8px; }
+        .ethics-box p { font-size: 0.85rem; margin: 0; }
+        .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 0.85rem; color: var(--text-secondary); max-width: 1100px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">Purpose-Driven Leadership</span>
+            <h1>Building "Companies That Care"</h1>
+            <p style="font-size: 1.15rem; max-width: 750px; margin: 0 auto 24px;">
+                Companies that genuinely care—about employees, customers, communities, and the planet—outperform those that don't. Care isn't soft; it's strategic. This guide shows how to build organizations where caring is core, not coating.
+            </p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="#pillars" class="btn btn-primary">Care Pillars</a>
+                <a href="#practices" class="btn btn-secondary">Daily Practices</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>Why "Care" Is a Business Strategy</h2>
+            <p>Care isn't charity—it's competitive advantage. Companies that authentically care attract better talent, build stronger customer relationships, and sustain performance over time.</p>
+
+            <div class="callout">
+                <p class="callout-quote">"People will forget what you said, people will forget what you did, but people will never forget how you made them feel."</p>
+                <p class="callout-source">— Maya Angelou</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>👥 Talent Attraction</h3>
+                    <p>87% of millennials consider company purpose important. Caring companies attract and retain top talent in competitive markets.</p>
+                </div>
+                <div class="card">
+                    <h3>💝 Customer Loyalty</h3>
+                    <p>Customers increasingly choose brands aligned with their values. Purpose-driven companies build deeper loyalty.</p>
+                </div>
+                <div class="card">
+                    <h3>📈 Performance</h3>
+                    <p>Companies with strong purpose outperform the market 5-7x. Care drives engagement, which drives results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="pillars">
+        <div class="container">
+            <h2>The Four Pillars of Care</h2>
+            <p>Authentic caring organizations excel across four dimensions.</p>
+
+            <div class="pillar-grid">
+                <div class="pillar-card">
+                    <div class="pillar-icon">👤</div>
+                    <h3>Care for People</h3>
+                    <p>Employees first. Wellbeing, growth, dignity, fair treatment. Happy employees create happy customers.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon">🎯</div>
+                    <h3>Care for Customers</h3>
+                    <p>Solve real problems. Don't exploit. Long-term relationships over short-term extraction.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon">🏘️</div>
+                    <h3>Care for Community</h3>
+                    <p>Be a good neighbor. Contribute locally. Support the ecosystem that supports you.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-icon">🌍</div>
+                    <h3>Care for Planet</h3>
+                    <p>Environmental responsibility. Sustainable practices. Leave things better than you found them.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="practices">
+        <div class="container">
+            <h2>Daily Practices That Show Care</h2>
+            <p>Care is demonstrated in small, consistent actions.</p>
+
+            <ul class="practice-list">
+                <li class="practice-item">
+                    <span class="practice-icon">👋</span>
+                    <div>
+                        <h4>Know Names, Know Stories</h4>
+                        <p>Learn people's names, interests, and what matters to them. Ask follow-up questions. Remember details.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="practice-icon">👂</span>
+                    <div>
+                        <h4>Listen More Than Talk</h4>
+                        <p>Give people your full attention. Put away devices. Ask questions. Repeat back what you heard.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="practice-icon">🎉</span>
+                    <div>
+                        <h4>Celebrate Publicly, Critique Privately</h4>
+                        <p>Recognize contributions openly. Handle difficult conversations with dignity and privacy.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="practice-icon">🤝</span>
+                    <div>
+                        <h4>Follow Through</h4>
+                        <p>Do what you say you'll do. If you can't, explain why. Reliability builds trust.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="practice-icon">🌱</span>
+                    <div>
+                        <h4>Invest in Growth</h4>
+                        <p>Develop people even when it doesn't directly benefit you. Help them become their best selves.</p>
+                    </div>
+                </li>
+                <li class="practice-item">
+                    <span class="practice-icon">🛡️</span>
+                    <div>
+                        <h4>Protect Boundaries</h4>
+                        <p>Respect work-life balance. Don't send weekend emails expecting responses. Model healthy boundaries.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section" id="experiment">
+        <div class="container">
+            <h2>30-Day "Care Culture" Experiment</h2>
+            <p>Build a more caring culture on your team.</p>
+
+            <div class="timeline">
+                <div class="week-block">
+                    <div class="week-label">Week 1</div>
+                    <div class="week-title">Listen & Learn</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Have a 1:1 focused entirely on the other person's wellbeing</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Ask team: "What would make this a more caring workplace?"</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Learn something personal about each direct report</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Identify one policy that feels uncaring—why?</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 2</div>
+                    <div class="week-title">Model Care</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Send a genuine thank-you note to someone who helped you</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Publicly recognize someone's contribution</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Protect someone's time (cancel an unnecessary meeting)</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Ask about work-life balance in team meeting</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 3</div>
+                    <div class="week-title">Systemic Changes</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Change one policy to be more human-centered</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Create a ritual that celebrates team members</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Plan a community contribution (volunteer, donate, support)</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Review customer interactions—are they caring?</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 4</div>
+                    <div class="week-title">Sustain</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Document care practices for onboarding</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Add care-related question to team surveys</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Schedule recurring care-focused conversations</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Share learnings with peer leaders</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="metrics">
+        <div class="container">
+            <h2>Care Culture Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Employee NPS</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Voluntary Turnover</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Customer NPS</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Community Hours</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Wellbeing Score</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Trust Index</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="risks">
+        <div class="container">
+            <div class="risk-section">
+                <h3>Care Culture Pitfalls</h3>
+
+                <div class="risk-item">
+                    <h4>Performative Care</h4>
+                    <p>Saying the right things without backing them up. Yoga classes while overworking people.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Match actions to words. Ask employees if care feels real.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Care as Control</h4>
+                    <p>Using "family" language to manipulate. "We're a family" often means "we expect sacrifice."</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Respect boundaries. Don't use care language to guilt.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Selective Care</h4>
+                    <p>Caring about some people but not others. Favoritism disguised as culture.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Consistent treatment across roles, tenures, identities.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Care Without Accountability</h4>
+                    <p>Being so "nice" that problems aren't addressed. Care includes honest feedback.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Caring includes holding standards. Kindness ≠ avoidance.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>About This Guide</h4>
+                <p>Framework for building caring organizations, synthesizing positive psychology and organizational culture research.</p>
+            </div>
+            <div>
+                <h4>Key Sources</h4>
+                <ul>
+                    <li>Conscious Capitalism</li>
+                    <li>The Culture Code by Daniel Coyle</li>
+                    <li>Positive Organizational Psychology</li>
+                    <li>Purpose-Driven Companies Research</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Data & Privacy</h4>
+                <p>All features store data locally. Nothing transmitted.</p>
+            </div>
+        </div>
+        <div class="ethics-box">
+            <h4>🛡️ Zero Harm & Anti-Coercion Commitment</h4>
+            <p>Care must be genuine, not performative. "Family" language should never manipulate. Caring organizations respect boundaries, don't surveil employees, and don't use wellbeing programs as substitutes for fair treatment. Real care means fair pay, reasonable hours, and dignity at work.</p>
+        </div>
+        <div class="footer-bottom">
+            <p>Building Companies That Care | Where purpose drives performance</p>
+        </div>
+    </footer>
+</body>
+</html>
