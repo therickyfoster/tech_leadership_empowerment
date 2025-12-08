@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovation Self-Efficacy & Knowledge-Sharing Cultures in Engineering & Product Orgs</title>
+    <style>
+        :root {
+            --bg-deep: #0d1117;
+            --bg-surface: #161b22;
+            --bg-elevated: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-green: #3fb950;
+            --accent-blue: #58a6ff;
+            --accent-purple: #a371f7;
+            --accent-orange: #f0883e;
+            --font-display: 'Segoe UI', system-ui, sans-serif;
+            --font-body: 'Georgia', serif;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s ease;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); line-height: 1.75; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 80px 0; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.3; }
+        h1 { font-size: clamp(2rem, 4vw, 3.2rem); background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; }
+        h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.3rem; color: var(--accent-green); margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        a { color: var(--accent-blue); text-decoration: none; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 24px; background: radial-gradient(ellipse at top, rgba(63,185,80,0.15), transparent 50%); }
+        .hero-content { max-width: 800px; }
+        .badge { display: inline-block; padding: 6px 16px; background: rgba(63,185,80,0.15); border: 1px solid var(--accent-green); border-radius: 50px; font-family: var(--font-display); font-size: 0.8rem; color: var(--accent-green); margin-bottom: 20px; }
+        .card { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 28px; transition: var(--transition); margin-bottom: 20px; }
+        .card:hover { border-color: var(--accent-green); transform: translateY(-3px); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 32px 0; }
+        .panel { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 40px; margin: 32px 0; }
+        .framework-visual { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0; }
+        @media (max-width: 768px) { .framework-visual { grid-template-columns: 1fr; } }
+        .framework-item { padding: 24px; background: var(--bg-elevated); border-radius: var(--radius-md); text-align: center; border-left: 4px solid var(--accent-green); transition: var(--transition); }
+        .framework-item:hover { transform: scale(1.02); }
+        .framework-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .framework-title { font-family: var(--font-display); font-weight: 600; margin-bottom: 8px; }
+        .framework-desc { font-size: 0.9rem; color: var(--text-muted); }
+        .assessment-box { background: var(--bg-surface); border-radius: var(--radius-lg); padding: 40px; max-width: 700px; margin: 40px auto; }
+        .q-block { margin-bottom: 24px; }
+        .q-text { font-family: var(--font-display); color: var(--text-primary); margin-bottom: 12px; }
+        .scale-row { display: flex; gap: 8px; }
+        .scale-btn { flex: 1; padding: 12px 8px; background: var(--bg-elevated); border: 2px solid transparent; border-radius: 8px; cursor: pointer; text-align: center; transition: var(--transition); font-family: var(--font-display); color: var(--text-secondary); font-size: 0.9rem; }
+        .scale-btn:hover { border-color: var(--accent-blue); }
+        .scale-btn.selected { background: var(--accent-green); color: var(--bg-deep); border-color: var(--accent-green); }
+        .results-box { display: none; margin-top: 32px; padding: 24px; background: var(--bg-elevated); border-radius: var(--radius-md); }
+        .results-box.visible { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .bar-container { margin-bottom: 16px; }
+        .bar-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px; }
+        .bar-track { height: 12px; background: var(--bg-surface); border-radius: 6px; overflow: hidden; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent-green), var(--accent-blue)); border-radius: 6px; transition: width 0.8s ease; }
+        .practice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 32px 0; }
+        .practice-card { padding: 24px; background: var(--bg-elevated); border: 2px solid transparent; border-radius: var(--radius-md); cursor: pointer; transition: var(--transition); }
+        .practice-card:hover { border-color: var(--accent-blue); }
+        .practice-card.selected { border-color: var(--accent-green); background: rgba(63,185,80,0.1); }
+        .practice-card h5 { font-family: var(--font-display); color: var(--text-primary); margin-bottom: 8px; }
+        .practice-card p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+        .timeline { position: relative; padding-left: 36px; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--accent-green), var(--accent-blue), var(--accent-purple)); }
+        .week-block { position: relative; margin-bottom: 32px; }
+        .week-block::before { content: ''; position: absolute; left: -30px; top: 6px; width: 14px; height: 14px; background: var(--accent-green); border: 3px solid var(--bg-deep); border-radius: 50%; }
+        .week-label { font-family: var(--font-display); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-green); }
+        .week-title { font-family: var(--font-display); font-size: 1.1rem; margin: 6px 0 12px; }
+        .actions-box { background: var(--bg-surface); border-radius: var(--radius-md); padding: 20px; }
+        .action-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .action-row:last-child { border-bottom: none; }
+        .action-check { width: 22px; height: 22px; border: 2px solid var(--text-muted); border-radius: 4px; cursor: pointer; flex-shrink: 0; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+        .action-check.done { background: var(--accent-green); border-color: var(--accent-green); }
+        .action-check.done::after { content: '✓'; color: var(--bg-deep); font-weight: bold; font-size: 0.8rem; }
+        .meeting-box { background: var(--bg-surface); border: 2px solid var(--accent-blue); border-radius: var(--radius-lg); overflow: hidden; margin: 40px 0; }
+        .meeting-header { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); padding: 24px; color: white; }
+        .meeting-header h3 { color: white; }
+        .meeting-body { padding: 28px; }
+        .agenda-row { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .agenda-row:last-child { border-bottom: none; }
+        .agenda-time { font-family: monospace; color: var(--accent-blue); }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 32px 0; }
+        .metric { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 24px; text-align: center; }
+        .metric-val { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent-green); }
+        .metric-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; }
+        .risk-section { background: rgba(240,136,62,0.1); border: 1px solid var(--accent-orange); border-radius: var(--radius-lg); padding: 40px; margin: 40px 0; }
+        .risk-item { background: var(--bg-surface); border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; }
+        .risk-item h4 { color: var(--accent-orange); margin-bottom: 10px; }
+        .risk-item h4::before { content: '⚠️ '; }
+        .mitigation { margin-top: 12px; padding: 12px; background: rgba(63,185,80,0.1); border-radius: 6px; font-size: 0.9rem; }
+        .mitigation strong { color: var(--accent-green); }
+        .callout { padding: 28px; background: var(--bg-elevated); border-left: 4px solid var(--accent-blue); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: 28px 0; }
+        .callout-quote { font-size: 1.15rem; font-style: italic; color: var(--text-primary); margin-bottom: 12px; }
+        .callout-source { font-size: 0.9rem; color: var(--text-muted); }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: var(--transition); }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(63,185,80,0.3); }
+        .btn-secondary { background: transparent; border: 2px solid var(--accent-blue); color: var(--accent-blue); }
+        .btn-secondary:hover { background: var(--accent-blue); color: var(--bg-deep); }
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+        .citation { font-size: 0.8rem; color: var(--text-muted); padding: 10px 14px; background: var(--bg-elevated); border-radius: 6px; margin-top: 10px; }
+        .citation::before { content: '📚 '; }
+        .tabs { margin: 32px 0; }
+        .tab-list { display: flex; gap: 4px; background: var(--bg-surface); padding: 4px; border-radius: var(--radius-md); margin-bottom: 20px; overflow-x: auto; }
+        .tab-btn { flex: 1; min-width: 100px; padding: 12px 16px; background: transparent; border: none; border-radius: 8px; font-family: var(--font-display); font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: var(--transition); }
+        .tab-btn:hover { color: var(--text-primary); }
+        .tab-btn.active { background: var(--accent-green); color: var(--bg-deep); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        .checklist { list-style: none; }
+        .checklist-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: var(--bg-elevated); border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: var(--transition); }
+        .checklist-item:hover { background: var(--bg-surface); }
+        .checklist-item.checked { border-left: 3px solid var(--accent-green); }
+        .check-box { width: 22px; height: 22px; border: 2px solid var(--text-muted); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        .checklist-item.checked .check-box { background: var(--accent-green); border-color: var(--accent-green); }
+        .checklist-item.checked .check-box::after { content: '✓'; color: var(--bg-deep); font-weight: bold; }
+        .footer { background: var(--bg-surface); border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 24px 40px; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto 40px; }
+        .footer h4 { margin-bottom: 16px; }
+        .footer p, .footer li { font-size: 0.9rem; color: var(--text-muted); }
+        .footer ul { list-style: none; }
+        .footer li { padding: 4px 0; }
+        .ethics-box { max-width: 1100px; margin: 0 auto 32px; padding: 24px; background: rgba(63,185,80,0.1); border: 1px solid var(--accent-green); border-radius: var(--radius-md); text-align: center; }
+        .ethics-box h4 { color: var(--accent-green); margin-bottom: 8px; }
+        .ethics-box p { font-size: 0.85rem; margin: 0; }
+        .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: var(--text-muted); max-width: 1100px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">Research-Grounded Leadership Guide</span>
+            <h1>Innovation Self-Efficacy & Knowledge-Sharing Cultures</h1>
+            <p style="font-size: 1.15rem; max-width: 700px; margin: 0 auto 24px;">
+                Build engineering and product organizations where every team member believes they can innovate—and where knowledge flows freely. Transform individual confidence into collective capability.
+            </p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="#assessment" class="btn btn-primary">Assess Your Culture</a>
+                <a href="#practices" class="btn btn-secondary">Explore Practices</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>The Innovation-Knowledge Connection</h2>
+            <p>Innovation self-efficacy—the belief that you can successfully generate and implement new ideas—is the hidden multiplier of organizational innovation. When paired with robust knowledge-sharing cultures, individual confidence becomes collective capability.</p>
+
+            <div class="callout">
+                <p class="callout-quote">"People who believe they can innovate, will. People who don't, won't—regardless of their actual capability. Self-efficacy is the ignition switch of innovation."</p>
+                <p class="callout-source">— Adapted from Bandura's Self-Efficacy Theory, applied to innovation contexts</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🧠 Self-Efficacy Science</h3>
+                    <p>Research shows innovation self-efficacy predicts creative output better than raw intelligence or technical skill. It's the belief that you CAN innovate that unlocks the ability to actually do so.</p>
+                    <div class="citation">Tierney & Farmer (2011). Creative Self-Efficacy Development. Academy of Management Review.</div>
+                </div>
+                <div class="card">
+                    <h3>🔄 Knowledge Flow Impact</h3>
+                    <p>Organizations with strong knowledge-sharing cultures are 35% more likely to be innovation leaders and show 25% higher employee engagement (McKinsey, 2023).</p>
+                    <div class="citation">McKinsey Global Institute, "The Social Economy," 2023</div>
+                </div>
+                <div class="card">
+                    <h3>💡 The Multiplier Effect</h3>
+                    <p>When self-efficacy meets knowledge-sharing, innovation compounds. Ideas build on ideas, confidence spreads, and organizations develop "innovation momentum."</p>
+                    <div class="citation">Harvard Business Review, "Innovation Networks," 2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="framework">
+        <div class="container">
+            <h2>The Innovation Self-Efficacy Framework</h2>
+            <p>Based on Bandura's self-efficacy theory, applied to innovation contexts. Four sources build innovation confidence.</p>
+
+            <div class="framework-visual">
+                <div class="framework-item" style="border-color: var(--accent-green);">
+                    <div class="framework-icon">🏆</div>
+                    <div class="framework-title">Mastery Experiences</div>
+                    <div class="framework-desc">Success builds confidence. Small wins accumulate into innovation identity.</div>
+                </div>
+                <div class="framework-item" style="border-color: var(--accent-blue);">
+                    <div class="framework-icon">👀</div>
+                    <div class="framework-title">Vicarious Learning</div>
+                    <div class="framework-desc">Seeing peers succeed ("if they can, I can") builds belief.</div>
+                </div>
+                <div class="framework-item" style="border-color: var(--accent-purple);">
+                    <div class="framework-icon">💬</div>
+                    <div class="framework-title">Social Persuasion</div>
+                    <div class="framework-desc">Encouragement from credible others strengthens confidence.</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Building Each Source in Engineering Orgs</h3>
+
+                <h4 style="color: var(--accent-green); margin-top: 24px;">🏆 Mastery Experiences</h4>
+                <p>The most powerful source of self-efficacy. Design systems that create innovation wins:</p>
+                <ul style="color: var(--text-secondary); padding-left: 20px;">
+                    <li><strong>20% time or Innovation Fridays:</strong> Protected time for exploration projects</li>
+                    <li><strong>Hackathons with follow-through:</strong> Not just events, but paths to production</li>
+                    <li><strong>Incremental innovation:</strong> Small improvements count—celebrate them</li>
+                    <li><strong>Safe-to-fail experiments:</strong> Sandbox environments where trying is rewarded</li>
+                </ul>
+
+                <h4 style="color: var(--accent-blue); margin-top: 24px;">👀 Vicarious Learning</h4>
+                <p>Make innovation visible and relatable:</p>
+                <ul style="color: var(--text-secondary); padding-left: 20px;">
+                    <li><strong>Innovation showcases:</strong> Regular demos of what peers have created</li>
+                    <li><strong>Journey stories:</strong> Share the messy path, not just the polished result</li>
+                    <li><strong>Diverse role models:</strong> Show innovation from all levels and backgrounds</li>
+                    <li><strong>Failure stories:</strong> Normalize the attempts that didn't work</li>
+                </ul>
+
+                <h4 style="color: var(--accent-purple); margin-top: 24px;">💬 Social Persuasion</h4>
+                <p>Words matter—especially from leaders:</p>
+                <ul style="color: var(--text-secondary); padding-left: 20px;">
+                    <li><strong>Specific encouragement:</strong> "Your approach to X was innovative" beats generic praise</li>
+                    <li><strong>Growth framing:</strong> "You're building innovation skills" vs "You're innovative"</li>
+                    <li><strong>Invitation to contribute:</strong> "I'd love your creative input on this"</li>
+                    <li><strong>Attribution:</strong> Publicly credit idea originators</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="knowledge-sharing">
+        <div class="container">
+            <h2>Building Knowledge-Sharing Cultures</h2>
+            <p>Knowledge hoarding kills innovation. Here's how to build cultures where knowledge flows.</p>
+
+            <div class="tabs">
+                <div class="tab-list">
+                    <button class="tab-btn active" onclick="switchTab('barriers')">Barriers</button>
+                    <button class="tab-btn" onclick="switchTab('enablers')">Enablers</button>
+                    <button class="tab-btn" onclick="switchTab('systems')">Systems</button>
+                    <button class="tab-btn" onclick="switchTab('incentives')">Incentives</button>
+                </div>
+
+                <div class="tab-panel active" id="tab-barriers">
+                    <h3>Common Barriers to Knowledge Sharing</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>🏰 Knowledge as Power</h4>
+                            <p>When expertise equals job security, people hoard. Counter with: valuing teaching, promoting knowledge sharers, making expertise visible not scarce.</p>
+                        </div>
+                        <div class="card">
+                            <h4>⏰ Time Pressure</h4>
+                            <p>"I don't have time to document." Counter with: making documentation part of the workflow, not an extra step. Allocate explicit knowledge-sharing time.</p>
+                        </div>
+                        <div class="card">
+                            <h4>🔍 Findability</h4>
+                            <p>Knowledge exists but can't be found. Counter with: strong search, clear taxonomy, knowledge champions, and "ask me anything" sessions.</p>
+                        </div>
+                        <div class="card">
+                            <h4>😰 Fear of Judgment</h4>
+                            <p>"My knowledge isn't valuable enough." Counter with: celebrating all contributions, blameless culture, diverse examples of valuable sharing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="tab-enablers">
+                    <h3>Cultural Enablers</h3>
+                    <ul class="checklist">
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Psychological Safety:</strong> People share when it's safe to be wrong</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Learning Orientation:</strong> Mistakes are data, not failures</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Reciprocity Norms:</strong> "I share because others share with me"</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Trust:</strong> Belief that shared knowledge won't be misused</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Shared Purpose:</strong> "We're all trying to build something great"</div></li>
+                    </ul>
+                </div>
+
+                <div class="tab-panel" id="tab-systems">
+                    <h3>Knowledge Systems That Work</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <h4>📝 Living Documentation</h4>
+                            <p>Wikis and docs that stay current. Key: ownership, review cycles, and making updates easy. Tools: Notion, Confluence, GitBook.</p>
+                        </div>
+                        <div class="card">
+                            <h4>💬 Async Q&A</h4>
+                            <p>Searchable question archives. Slack channels, Stack Overflow for Teams, or dedicated knowledge bases. Value: answers persist.</p>
+                        </div>
+                        <div class="card">
+                            <h4>🎥 Video Knowledge</h4>
+                            <p>Loom recordings, recorded demos, onboarding videos. Lower barrier than writing, more searchable than meetings.</p>
+                        </div>
+                        <div class="card">
+                            <h4>👥 Knowledge Networks</h4>
+                            <p>Communities of practice, guilds, and expertise directories. "Who knows about X?" should have an answer.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="tab-incentives">
+                    <h3>Incentive Design</h3>
+                    <p>What gets rewarded gets done. Align incentives with knowledge sharing:</p>
+                    <ul class="checklist">
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Include in performance reviews:</strong> "How have you helped others learn?"</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Promotion criteria:</strong> Senior roles require demonstrated mentorship</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Recognition programs:</strong> Celebrate top knowledge sharers publicly</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Time allocation:</strong> Explicit time for documentation and teaching</div></li>
+                        <li class="checklist-item" onclick="toggleCheck(this)"><span class="check-box"></span><div><strong>Avoid zero-sum:</strong> Don't create competition for "expert" status</div></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="assessment">
+        <div class="container">
+            <h2 style="text-align: center;">Innovation Culture Assessment</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 32px;">Assess your team's innovation self-efficacy and knowledge-sharing health. All data stays local.</p>
+
+            <div class="assessment-box">
+                <div id="assessment-questions"></div>
+                <div class="btn-group" style="justify-content: center;">
+                    <button class="btn btn-primary" onclick="calculateAssessment()">See Results</button>
+                    <button class="btn btn-secondary" onclick="resetAssessment()">Reset</button>
+                </div>
+                <div class="results-box" id="assessment-results">
+                    <h4>Your Innovation Culture Profile</h4>
+                    <div id="results-bars"></div>
+                    <div id="recommendations" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="practices">
+        <div class="container">
+            <h2>Practices to Build Innovation & Knowledge-Sharing</h2>
+            <p>Select practices that fit your context. Build your custom playbook.</p>
+
+            <h3 style="margin-top: 32px;">🚀 Innovation Practices</h3>
+            <div class="practice-grid">
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Innovation Time</h5>
+                    <p>20% time, Innovation Fridays, or dedicated exploration sprints.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Idea Challenges</h5>
+                    <p>Structured problem-solving campaigns around specific business challenges.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Rapid Prototyping</h5>
+                    <p>Culture of building quick proofs-of-concept to test ideas.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Innovation Showcases</h5>
+                    <p>Regular demos where anyone can present what they've been exploring.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 32px;">📚 Knowledge-Sharing Practices</h3>
+            <div class="practice-grid">
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Tech Talks</h5>
+                    <p>Regular internal presentations on technical topics.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Pair Programming</h5>
+                    <p>Structured pairing for knowledge transfer and quality.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Documentation Days</h5>
+                    <p>Dedicated time for documentation with group co-working.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Guilds & Communities</h5>
+                    <p>Cross-team groups organized around technologies or practices.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 32px;">🔄 Learning Practices</h3>
+            <div class="practice-grid">
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Learning Budgets</h5>
+                    <p>Time and money allocated for individual learning.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Book Clubs</h5>
+                    <p>Group reading and discussion of technical or leadership books.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Retrospectives</h5>
+                    <p>Regular team reflection on what worked and what didn't.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <h5>Post-Mortems</h5>
+                    <p>Blameless analysis of incidents and failures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="experiment">
+        <div class="container">
+            <h2>The 30-Day Innovation Culture Experiment</h2>
+            <p>A structured journey to build innovation self-efficacy and knowledge-sharing. Track your progress.</p>
+
+            <div class="timeline">
+                <div class="week-block">
+                    <div class="week-label">Week 1: Days 1-7</div>
+                    <div class="week-title">Assess & Quick Wins</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Complete the assessment above and identify lowest-scoring areas</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Share one of your own innovation journey stories with the team</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Publicly recognize someone for an innovative approach</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Start an "ideas" channel or backlog where anyone can contribute</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Document one piece of knowledge that only you have</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 2: Days 8-14</div>
+                    <div class="week-title">Build Systems</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Set up or improve your knowledge base structure</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Schedule first innovation showcase or tech talk</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Create an expertise directory: "Who knows what?"</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Introduce pair programming or mentoring pairs</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Host an "ask me anything" session with a domain expert</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 3: Days 15-21</div>
+                    <div class="week-title">Create Experiences</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Run a mini-hackathon or innovation sprint</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Celebrate and publicize the outcomes (including "failures")</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Give specific, encouraging feedback on innovative attempts</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Create a "failure wall" or learning repository</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Connect someone's idea to a real project or pilot</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 4: Days 22-30</div>
+                    <div class="week-title">Institutionalize</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Add knowledge-sharing to performance review criteria</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Schedule recurring innovation/sharing rituals</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Re-assess using the tool above—compare to baseline</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Document what worked and share with other leaders</span></div>
+                        <div class="action-row"><div class="action-check" onclick="toggleAction(this)"></div><span>Plan next quarter's innovation and learning initiatives</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="meeting">
+        <div class="container">
+            <h2>The 1-Meeting Version</h2>
+            <p>Only have 60 minutes? Use this workshop to kickstart innovation culture.</p>
+
+            <div class="meeting-box">
+                <div class="meeting-header">
+                    <h3>💡 Innovation Culture Kickstart</h3>
+                    <span>60 min | 5-12 people | Creates shared language + 3 commitments</span>
+                </div>
+                <div class="meeting-body">
+                    <div class="agenda-row"><div class="agenda-time">0:00-0:05</div><div><strong>Context</strong><br>Why innovation culture matters. Share one stat or story.</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:05-0:15</div><div><strong>Framework</strong><br>Present the four sources of innovation self-efficacy.</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:15-0:25</div><div><strong>Paired Share</strong><br>"When have you felt most innovative at work? What enabled it?"</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:25-0:35</div><div><strong>Barriers</strong><br>Brainstorm: What prevents innovation and knowledge-sharing here?</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:35-0:50</div><div><strong>Solutions</strong><br>Generate ideas to address top barriers. Dot vote on favorites.</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:50-0:60</div><div><strong>Commit</strong><br>Pick 3 actions to implement. Assign owners. Schedule follow-up.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="metrics">
+        <div class="container">
+            <h2>Metrics & Leading Indicators</h2>
+            <p>Track progress on innovation and knowledge-sharing culture.</p>
+
+            <div class="metrics-grid">
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Ideas Submitted</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Ideas Implemented</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Docs Created/Updated</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Knowledge Shares</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Cross-Team Collab</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Experiment Velocity</div></div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Survey Questions</h3>
+            <div class="card">
+                <ul style="color: var(--text-secondary); padding-left: 20px;">
+                    <li>"I feel confident proposing new ideas." (1-5)</li>
+                    <li>"When I need information, I know where to find it." (1-5)</li>
+                    <li>"People on my team freely share knowledge." (1-5)</li>
+                    <li>"Innovative attempts are celebrated regardless of outcome." (1-5)</li>
+                    <li>"I have time and space to explore new approaches." (1-5)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="risks">
+        <div class="container">
+            <div class="risk-section">
+                <h3>Risks, Pitfalls & Anti-Abuse Guidance</h3>
+
+                <div class="risk-item">
+                    <h4>Innovation Theater</h4>
+                    <p>Hackathons and idea programs that never lead to real impact. Creates cynicism.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Clear path from idea to pilot. Track implementation rate. Kill programs that don't produce outcomes.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Knowledge Hoarding Rewards</h4>
+                    <p>Systems that make experts feel threatened by sharing (zero-sum promotions, expert status).</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Reward teaching explicitly. Promote knowledge sharers. Make expertise replicable, not scarce.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Idea Theft</h4>
+                    <p>Managers or senior folks taking credit for others' ideas. Destroys trust.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Track idea attribution. Public recognition of originators. Call out credit-taking.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Documentation Burden</h4>
+                    <p>So much documentation required that it kills productivity.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Right-size documentation. Video alternatives. Clear ownership. Regular pruning.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Exclusionary Innovation</h4>
+                    <p>Innovation programs that favor certain groups (loudest voices, most senior, etc.).</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Anonymous idea submission. Diverse review panels. Explicit inclusion goals.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>About This Guide</h4>
+                <p>Synthesizes research on innovation self-efficacy, knowledge management, and organizational learning for engineering and product contexts.</p>
+            </div>
+            <div>
+                <h4>Key Sources</h4>
+                <ul>
+                    <li>Bandura's Self-Efficacy Theory</li>
+                    <li>Tierney & Farmer (2011) Creative Self-Efficacy</li>
+                    <li>McKinsey Knowledge Management Research</li>
+                    <li>Google's Innovation Practices</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Data & Privacy</h4>
+                <p>All interactive features store data locally in your browser only. Nothing is transmitted anywhere.</p>
+            </div>
+        </div>
+        <div class="ethics-box">
+            <h4>🛡️ Zero Harm & Anti-Coercion Commitment</h4>
+            <p>Innovation culture must not be used to extract unpaid labor, steal ideas, or create burnout through "always be innovating" pressure. Knowledge sharing must be voluntary and credited. When in doubt, ask: who benefits?</p>
+        </div>
+        <div class="footer-bottom">
+            <p>Innovation Self-Efficacy & Knowledge-Sharing Cultures | Building organizations where everyone can innovate</p>
+        </div>
+    </footer>
+
+    <script>
+        const assessmentQuestions = [
+            { id: 'se1', text: 'Team members feel confident proposing new ideas.', category: 'Self-Efficacy' },
+            { id: 'se2', text: 'People believe their innovative attempts will be supported.', category: 'Self-Efficacy' },
+            { id: 'ks1', text: 'Knowledge is freely shared across the team.', category: 'Knowledge-Sharing' },
+            { id: 'ks2', text: 'Documentation is current and findable.', category: 'Knowledge-Sharing' },
+            { id: 'in1', text: 'There is dedicated time for exploration and innovation.', category: 'Innovation Systems' },
+            { id: 'in2', text: 'Ideas have a clear path from concept to implementation.', category: 'Innovation Systems' },
+            { id: 'cu1', text: 'Failures are treated as learning opportunities.', category: 'Culture' },
+            { id: 'cu2', text: 'Innovation and knowledge-sharing are recognized and rewarded.', category: 'Culture' }
+        ];
+        let answers = {};
+
+        function renderAssessment() {
+            const saved = localStorage.getItem('innovationAssessment');
+            if (saved) answers = JSON.parse(saved);
+            document.getElementById('assessment-questions').innerHTML = assessmentQuestions.map((q, i) => `
+                <div class="q-block">
+                    <div class="q-text">${i+1}. ${q.text}</div>
+                    <div class="scale-row">
+                        ${[1,2,3,4,5].map(v => `<div class="scale-btn ${answers[q.id]===v?'selected':''}" onclick="pickAnswer('${q.id}',${v})">${v}</div>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function pickAnswer(qid, val) {
+            answers[qid] = val;
+            localStorage.setItem('innovationAssessment', JSON.stringify(answers));
+            renderAssessment();
+        }
+
+        function calculateAssessment() {
+            if (assessmentQuestions.some(q => !answers[q.id])) { alert('Please answer all questions.'); return; }
+            const categories = {};
+            assessmentQuestions.forEach(q => {
+                if (!categories[q.category]) categories[q.category] = [];
+                categories[q.category].push(answers[q.id]);
+            });
+            let html = '';
+            Object.entries(categories).forEach(([cat, vals]) => {
+                const avg = vals.reduce((a,b) => a+b, 0) / vals.length;
+                const pct = (avg / 5) * 100;
+                html += `<div class="bar-container"><div class="bar-label"><span>${cat}</span><span>${avg.toFixed(1)}/5</span></div><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div></div>`;
+            });
+            document.getElementById('results-bars').innerHTML = html;
+            const overall = Object.values(answers).reduce((a,b) => a+b, 0) / Object.values(answers).length;
+            let rec = '';
+            if (overall < 2.5) rec = 'Focus on psychological safety first. People need to feel safe before they\'ll innovate or share.';
+            else if (overall < 3.5) rec = 'You have foundations. Focus on creating more mastery experiences and improving knowledge systems.';
+            else rec = 'Strong culture! Focus on maintaining momentum and institutionalizing practices.';
+            document.getElementById('recommendations').innerHTML = `<p><strong>Overall: ${overall.toFixed(1)}/5</strong></p><p>${rec}</p>`;
+            document.getElementById('assessment-results').classList.add('visible');
+        }
+
+        function resetAssessment() {
+            if (confirm('Reset all responses?')) {
+                answers = {};
+                localStorage.removeItem('innovationAssessment');
+                document.getElementById('assessment-results').classList.remove('visible');
+                renderAssessment();
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+        }
+
+        function toggleCheck(el) { el.classList.toggle('checked'); }
+        function toggleAction(el) { el.classList.toggle('done'); saveActions(); }
+
+        function saveActions() {
+            const done = [];
+            document.querySelectorAll('.action-check.done').forEach((el, i) => done.push(i));
+            localStorage.setItem('innovationActions', JSON.stringify(done));
+        }
+
+        function loadActions() {
+            const saved = localStorage.getItem('innovationActions');
+            if (saved) JSON.parse(saved).forEach(i => document.querySelectorAll('.action-check')[i]?.classList.add('done'));
+        }
+
+        renderAssessment();
+        loadActions();
+    </script>
+</body>
+</html>
