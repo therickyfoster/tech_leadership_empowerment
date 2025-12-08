@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leading Hybrid and Distributed Teams</title>
+    <style>
+        :root {
+            --bg-deep: #0d1b2a;
+            --bg-surface: #1b263b;
+            --bg-elevated: #2d3e50;
+            --text-primary: #e0e6ed;
+            --text-secondary: #8899a6;
+            --accent-blue: #4cc9f0;
+            --accent-purple: #7b2cbf;
+            --accent-pink: #f72585;
+            --accent-green: #06d6a0;
+            --font-display: 'Segoe UI', system-ui, sans-serif;
+            --font-body: Georgia, serif;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font-body); background: var(--bg-deep); color: var(--text-primary); line-height: 1.75; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 80px 0; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; }
+        h1 { font-size: clamp(2rem, 4vw, 3rem); background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; }
+        h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1rem; }
+        h3 { font-size: 1.3rem; color: var(--accent-blue); margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 24px; background: radial-gradient(ellipse at top right, rgba(76,201,240,0.12), transparent 50%), radial-gradient(ellipse at bottom left, rgba(123,44,191,0.12), transparent 50%); }
+        .hero-content { max-width: 850px; }
+        .badge { display: inline-block; padding: 6px 16px; background: rgba(76,201,240,0.15); border: 1px solid var(--accent-blue); border-radius: 50px; font-family: var(--font-display); font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 20px; }
+        .card { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; transition: all 0.3s ease; }
+        .card:hover { border-color: var(--accent-purple); transform: translateY(-3px); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 32px 0; }
+        .panel { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 40px; margin: 32px 0; }
+        .challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 32px 0; }
+        .challenge-card { padding: 24px; background: var(--bg-elevated); border-radius: var(--radius-md); border-left: 4px solid var(--accent-pink); }
+        .challenge-card h4 { color: var(--accent-pink); margin-bottom: 10px; font-size: 1rem; }
+        .practice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 40px 0; }
+        .practice-card { padding: 28px; background: var(--bg-elevated); border-radius: var(--radius-lg); border-top: 4px solid var(--accent-green); cursor: pointer; transition: all 0.3s ease; }
+        .practice-card:hover { transform: translateY(-3px); }
+        .practice-card.selected { border-color: var(--accent-blue); background: rgba(76,201,240,0.1); }
+        .practice-icon { font-size: 2rem; margin-bottom: 12px; }
+        .timeline { position: relative; padding-left: 36px; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), var(--accent-pink)); }
+        .week-block { position: relative; margin-bottom: 32px; }
+        .week-block::before { content: ''; position: absolute; left: -30px; top: 6px; width: 14px; height: 14px; background: var(--accent-blue); border: 3px solid var(--bg-deep); border-radius: 50%; }
+        .week-label { font-family: var(--font-display); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent-blue); }
+        .week-title { font-family: var(--font-display); font-size: 1.1rem; margin: 6px 0 12px; }
+        .actions-box { background: var(--bg-surface); border-radius: var(--radius-md); padding: 20px; }
+        .action-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .action-row:last-child { border-bottom: none; }
+        .action-check { width: 22px; height: 22px; border: 2px solid var(--text-secondary); border-radius: 4px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .action-check.done { background: var(--accent-green); border-color: var(--accent-green); }
+        .action-check.done::after { content: '✓'; color: var(--bg-deep); font-weight: bold; font-size: 0.8rem; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-family: var(--font-display); font-size: 0.9rem; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(76,201,240,0.3); }
+        .btn-secondary { background: transparent; border: 2px solid var(--accent-purple); color: var(--accent-purple); }
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+        .callout { padding: 28px; background: var(--bg-elevated); border-left: 4px solid var(--accent-purple); border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: 28px 0; }
+        .callout-quote { font-size: 1.15rem; font-style: italic; color: var(--text-primary); margin-bottom: 12px; }
+        .callout-source { font-size: 0.9rem; color: var(--text-secondary); }
+        .meeting-box { background: var(--bg-surface); border: 2px solid var(--accent-blue); border-radius: var(--radius-lg); overflow: hidden; margin: 40px 0; }
+        .meeting-header { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); padding: 24px; color: white; }
+        .meeting-header h3 { color: white; }
+        .meeting-body { padding: 28px; }
+        .agenda-row { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .agenda-row:last-child { border-bottom: none; }
+        .agenda-time { font-family: monospace; color: var(--accent-blue); }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 32px 0; }
+        .metric { background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 24px; text-align: center; }
+        .metric-val { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent-blue); }
+        .metric-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 6px; }
+        .risk-section { background: rgba(247,37,133,0.1); border: 1px solid var(--accent-pink); border-radius: var(--radius-lg); padding: 40px; margin: 40px 0; }
+        .risk-item { background: var(--bg-surface); border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; }
+        .risk-item h4 { color: var(--accent-pink); margin-bottom: 10px; }
+        .risk-item h4::before { content: '⚠️ '; }
+        .mitigation { margin-top: 12px; padding: 12px; background: rgba(6,214,160,0.1); border-radius: 6px; font-size: 0.9rem; }
+        .mitigation strong { color: var(--accent-green); }
+        .footer { background: var(--bg-surface); border-top: 1px solid rgba(255,255,255,0.1); padding: 60px 24px 40px; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1100px; margin: 0 auto 40px; }
+        .footer h4 { margin-bottom: 16px; }
+        .footer p, .footer li { font-size: 0.9rem; color: var(--text-secondary); }
+        .footer ul { list-style: none; }
+        .ethics-box { max-width: 1100px; margin: 0 auto 32px; padding: 24px; background: rgba(6,214,160,0.1); border: 1px solid var(--accent-green); border-radius: var(--radius-md); text-align: center; }
+        .ethics-box h4 { color: var(--accent-green); margin-bottom: 8px; }
+        .ethics-box p { font-size: 0.85rem; margin: 0; }
+        .footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: var(--text-secondary); max-width: 1100px; margin: 0 auto; }
+        .citation { font-size: 0.8rem; color: var(--text-secondary); padding: 10px 14px; background: var(--bg-elevated); border-radius: 6px; margin-top: 10px; }
+        .mode-comparison { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0; }
+        @media (max-width: 768px) { .mode-comparison { grid-template-columns: 1fr; } }
+        .mode-card { padding: 24px; background: var(--bg-elevated); border-radius: var(--radius-lg); text-align: center; }
+        .mode-card h4 { margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">Distributed Leadership Guide</span>
+            <h1>Leading Hybrid and Distributed Teams</h1>
+            <p style="font-size: 1.15rem; max-width: 750px; margin: 0 auto 24px;">
+                The future of work is distributed. Learn to lead teams that thrive across time zones, locations, and work modes—building connection, clarity, and culture without relying on physical presence.
+            </p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="#challenges" class="btn btn-primary">Key Challenges</a>
+                <a href="#practices" class="btn btn-secondary">Best Practices</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>The Distributed Reality</h2>
+            <p>Hybrid work is here to stay. The challenge isn't whether to embrace it, but how to lead effectively when your team is spread across locations, time zones, and work preferences.</p>
+
+            <div class="callout">
+                <p class="callout-quote">"The office isn't dead—but the idea that work only happens in an office is. The best leaders will build cultures that work regardless of where people are sitting."</p>
+                <p class="callout-source">— Darren Murph, Head of Remote, GitLab</p>
+            </div>
+
+            <div class="mode-comparison">
+                <div class="mode-card">
+                    <h4 style="color: var(--accent-blue);">🏢 Co-located</h4>
+                    <p>Everyone in same location. Synchronous by default. Spontaneous interaction easy.</p>
+                </div>
+                <div class="mode-card">
+                    <h4 style="color: var(--accent-purple);">🔀 Hybrid</h4>
+                    <p>Mix of office and remote. Most complex to manage. Risk of two-tier culture.</p>
+                </div>
+                <div class="mode-card">
+                    <h4 style="color: var(--accent-pink);">🌍 Fully Remote</h4>
+                    <p>All remote, possibly global. Async-first. Intentional about everything.</p>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>📊 The Data</h3>
+                    <p>87% of workers want flexibility in where they work. Companies offering flexibility see 25% lower turnover. But poorly managed hybrid leads to worse outcomes than either extreme.</p>
+                    <div class="citation">Microsoft Work Trend Index, Gallup Workplace Studies, 2024</div>
+                </div>
+                <div class="card">
+                    <h3>⚠️ The Risk</h3>
+                    <p>"Hybrid" often becomes "worst of both worlds"—office workers get face time while remote workers feel excluded. Without intentional design, inequity emerges.</p>
+                    <div class="citation">Stanford Hybrid Work Studies, 2024</div>
+                </div>
+                <div class="card">
+                    <h3>💡 The Opportunity</h3>
+                    <p>Well-designed distributed work expands talent pools, increases diversity, improves work-life balance, and can boost productivity when done right.</p>
+                    <div class="citation">GitLab Remote Work Report, 2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="challenges">
+        <div class="container">
+            <h2>Core Challenges of Distributed Leadership</h2>
+            <p>Understand these challenges to address them proactively.</p>
+
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <h4>📍 Proximity Bias</h4>
+                    <p>People in the office get more visibility, better assignments, and faster promotions. Remote workers become "out of sight, out of mind."</p>
+                </div>
+                <div class="challenge-card">
+                    <h4>💬 Communication Decay</h4>
+                    <p>Information doesn't flow naturally. Hallway conversations don't include remote workers. Context gets lost.</p>
+                </div>
+                <div class="challenge-card">
+                    <h4>🤝 Connection Deficit</h4>
+                    <p>Building relationships through screens is harder. New hires struggle to integrate. Team cohesion weakens.</p>
+                </div>
+                <div class="challenge-card">
+                    <h4>🌐 Timezone Friction</h4>
+                    <p>Someone is always inconvenienced. Real-time collaboration windows shrink. Async becomes essential but unfamiliar.</p>
+                </div>
+                <div class="challenge-card">
+                    <h4>📹 Meeting Fatigue</h4>
+                    <p>Video calls become the default, leading to exhaustion. The camera is always on. There's no break between meetings.</p>
+                </div>
+                <div class="challenge-card">
+                    <h4>🏠 Boundary Blur</h4>
+                    <p>Work invades personal space. The laptop is always there. Disconnecting becomes difficult.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="practices">
+        <div class="container">
+            <h2>Best Practices for Distributed Leadership</h2>
+            <p>Evidence-based practices for building effective distributed teams.</p>
+
+            <div class="practice-grid">
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <div class="practice-icon">📝</div>
+                    <h3>Documentation-First</h3>
+                    <p>If it's not written down, it didn't happen. Default to async documentation. Make information accessible to all, regardless of timezone.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <div class="practice-icon">📹</div>
+                    <h3>Video-Optional Culture</h3>
+                    <p>Camera fatigue is real. Make video optional for most meetings. Focus on outcomes, not face time.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <div class="practice-icon">⏰</div>
+                    <h3>Time Zone Equity</h3>
+                    <p>Rotate meeting times so the same people don't always sacrifice. Record important meetings. Make async participation equal.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <div class="practice-icon">🎯</div>
+                    <h3>Outcome-Based Management</h3>
+                    <p>Focus on results, not hours. Define clear deliverables. Trust people to manage their time.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <div class="practice-icon">🤝</div>
+                    <h3>Intentional Connection</h3>
+                    <p>Schedule non-work social time. Virtual coffee pairs. Team rituals that build relationships.</p>
+                </div>
+                <div class="practice-card" onclick="this.classList.toggle('selected')">
+                    <div class="practice-icon">🏢</div>
+                    <h3>In-Person Offsites</h3>
+                    <p>Periodic face-to-face time for relationship building. Annual or quarterly gatherings. Worth the investment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="experiment">
+        <div class="container">
+            <h2>30-Day Distributed Leadership Experiment</h2>
+            <p>Transform your distributed leadership through deliberate practice.</p>
+
+            <div class="timeline">
+                <div class="week-block">
+                    <div class="week-label">Week 1</div>
+                    <div class="week-title">Audit & Awareness</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Survey team on distributed work challenges and what's working</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Audit meeting times: who's always inconvenienced?</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Review recent promotions/assignments: any proximity bias?</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Document current communication norms (or lack thereof)</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 2</div>
+                    <div class="week-title">Communication Infrastructure</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Create team communication charter: when to use which channel</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Set up documentation system if missing (wiki, Notion, etc.)</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Make one meeting async this week (recorded update instead)</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Establish response time expectations</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 3</div>
+                    <div class="week-title">Connection & Equity</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Start virtual coffee pairing program</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Rotate a recurring meeting to different timezone</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Have explicit 1:1 conversations about career visibility with remote workers</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Make video optional for at least one meeting type</span></div>
+                    </div>
+                </div>
+
+                <div class="week-block">
+                    <div class="week-label">Week 4</div>
+                    <div class="week-title">Sustainability</div>
+                    <div class="actions-box">
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Re-survey team: what's improved? What's still hard?</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Codify new practices into team norms</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Plan next in-person gathering (if not already scheduled)</span></div>
+                        <div class="action-row"><div class="action-check" onclick="this.classList.toggle('done')"></div><span>Share learnings with other leaders</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="meeting">
+        <div class="container">
+            <h2>The 1-Meeting Version: Team Distributed Work Review</h2>
+            <p>A 45-minute workshop to improve distributed collaboration.</p>
+
+            <div class="meeting-box">
+                <div class="meeting-header">
+                    <h3>🌍 Distributed Work Check-In</h3>
+                    <span>45 min | Full team | Creates shared norms + 3 improvements</span>
+                </div>
+                <div class="meeting-body">
+                    <div class="agenda-row"><div class="agenda-time">0:00-0:05</div><div><strong>Context</strong><br>Why we're doing this. Our goal: make distributed work better for everyone.</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:05-0:15</div><div><strong>What's Working</strong><br>Each person shares one thing that works well in our distributed setup.</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:15-0:25</div><div><strong>What's Hard</strong><br>Each person shares one challenge. No solutions yet, just understanding.</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:25-0:35</div><div><strong>Solutions</strong><br>Brainstorm improvements. Focus on things we can control.</div></div>
+                    <div class="agenda-row"><div class="agenda-time">0:35-0:45</div><div><strong>Commit</strong><br>Vote on top 3 changes. Assign owners. Set review date.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="metrics">
+        <div class="container">
+            <h2>Metrics for Distributed Team Health</h2>
+            <div class="metrics-grid">
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Meeting Hours/Week</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Async Participation</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Remote Worker Promo Rate</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Timezone Equity Score</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Connection Score</div></div>
+                <div class="metric"><div class="metric-val">—</div><div class="metric-label">Documentation Coverage</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="risks">
+        <div class="container">
+            <div class="risk-section">
+                <h3>Risks & Anti-Patterns</h3>
+
+                <div class="risk-item">
+                    <h4>HQ Centrism</h4>
+                    <p>Decisions made by whoever is in the office. Remote workers learn about changes after the fact.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> All decisions documented and shared. Default to async decision-making. "If it's not written, it didn't happen."</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Always-On Expectations</h4>
+                    <p>Global coverage becomes excuse for 24/7 availability. People feel they can never disconnect.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Clear working hours. Emergency-only after-hours contact. Model disconnection.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Surveillance Creep</h4>
+                    <p>Using monitoring tools because you can't see people working. Trust erosion.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Outcome-based management. If you don't trust people to work remotely, that's a hiring/management problem.</div>
+                </div>
+
+                <div class="risk-item">
+                    <h4>Meeting Overload</h4>
+                    <p>Compensating for distance with more meetings. Calendar is wall-to-wall video calls.</p>
+                    <div class="mitigation"><strong>Mitigation:</strong> Meeting-free days. Async-first default. Every meeting needs clear purpose.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>About This Guide</h4>
+                <p>Evidence-based framework for distributed leadership, synthesizing research and practitioner experience from leading remote-first companies.</p>
+            </div>
+            <div>
+                <h4>Key Sources</h4>
+                <ul>
+                    <li>GitLab Remote Work Handbook</li>
+                    <li>Microsoft Work Trend Index</li>
+                    <li>Stanford Hybrid Work Research</li>
+                    <li>Gallup Workplace Studies</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Data & Privacy</h4>
+                <p>All features store data locally. Nothing transmitted.</p>
+            </div>
+        </div>
+        <div class="ethics-box">
+            <h4>🛡️ Zero Harm & Anti-Coercion Commitment</h4>
+            <p>Distributed work must never become surveillance work. Flexibility should benefit workers, not just employers. Remote work policies must not discriminate or create two-tier systems. When in doubt, prioritize employee wellbeing and trust.</p>
+        </div>
+        <div class="footer-bottom">
+            <p>Leading Hybrid and Distributed Teams | Building connection across distance</p>
+        </div>
+    </footer>
+</body>
+</html>
